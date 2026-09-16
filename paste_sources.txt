@@ -1,0 +1,148 @@
+# PASTE HAND-COLLECTED FORUM & SOCIAL POSTS HERE
+# ============================================================================
+# WHY THIS FILE EXISTS
+# Forums and social media can't be reliably auto-scraped (login walls, blocked
+# APIs, rate limits). So you collect these by hand from PUBLIC pages — just
+# reading like any normal visitor — and paste them here. The engine reads this
+# file and treats each line as a review, classified the same way as app-store
+# reviews.
+#
+# FORMAT (one entry per line):
+#       rating | source | the post text
+#
+#   - rating  = 1 to 5 if the platform shows one. Forums/social usually DON'T,
+#               so leave it blank like this:   | forum | text here
+#               (a blank rating is fine — the classifier handles it)
+#   - source  = forum   OR   social   OR   reddit
+#   - then | and the post text on ONE line
+#
+# Lines starting with # are ignored, so these notes are safe to leave in.
+#
+# HOW MANY: aim for ~15-25 per source. Quality over volume. Grab a RANGE —
+# include a few neutral/positive/off-topic ones too, so your sample isn't
+# biased toward your hypothesis. The classifier will sort relevance for you.
+#
+# WHERE TO COLLECT (all public, no login needed to read):
+#   forum  -> community.spotify.com (Spotify's own forum), Quora "Spotify
+#             discovery" answers, public Reddit threads read in your browser
+#   social -> public X/Twitter posts searching "Spotify discover weekly",
+#             "Spotify same songs", "Spotify recommendations boring"
+#   reddit -> r/spotify, r/truespotify threads (copied from the browser)
+#
+# ============================================================================
+
+# ---------- COMMUNITY FORUM (community.spotify.com, Quora, etc.) ----------
+# Replace these examples with real posts you collect:
+
+| forum | Song Radio is essentially just an echo chamber. I want to discover new artists based off song radio, not just hear the same songs I've been listening to. If I wanted to listen to those songs I would just continue to listen to them.
+| forum | Discover Weekly used to feel like true discovery, with a mix of songs across different genres. Lately it feels more focused on music similar to what I already listen to, which makes it less useful for finding new music.
+| forum | I'm getting more and more bored of Spotify. I feel like I've been hearing the same songs of my favorite artists in the daily mixes over and over.
+| forum | I want an endless Discovery station that never plays the same song twice. Spotify has the best algorithm of any streaming service but it currently feels put to waste.
+| forum | Smart Shuffle isn't made for discovery. It just puts the same fresh songs in my playlist so I listen to them again, it's not real discovery.
+| forum | Half of the weekly playlists are filled with AI generated songs from the same artists despite me downvoting them every single time I get one.
+| forum | Song Radio has no way for listeners to get into new music without scouring the platform. More than anything I want to be able to discover new artists based off song radio, not just hear the same songs I've been listening to.
+| forum | Please add a Not Interested button. I have been using Spotify for many years and still receive a lot of recommendations for music I have already listened to or disliked.
+| forum | I was hacked and the person listened to exclusively French hip-hop, and it is still affecting my discovery playlists and radio stations. I desperately need a way to reset my recommendations.
+| forum | Discover Weekly used to feel like true discovery with a mix of songs across different genres. Lately it feels more focused on music similar to what I already listen to, which makes it less useful for finding new music.
+| forum | I want a Discovery level option on Spotify. Currently most of the songs on Daily Mixes or Autoplay are songs I already liked. Sometimes I want more unfamiliar music without having to search manually.
+| forum | Smart Shuffle is not made for discovery. It just puts the same recommended songs into my playlist so I listen to them again — it is not real discovery.
+| forum | Half of the weekly playlists are filled with AI-generated songs from the same artists despite me downvoting them every single time I get one.
+| forum | I listened to a few ASMR episodes on Spotify. Now I literally do not get anything else recommended. There should be an option to stop getting something recommended when you clearly did not enjoy it.
+| forum | The platform is increasingly flooded with AI-generated songs especially in Release Radar, making it harder for users to discover authentic human-created music.
+| forum | So tired of hearing the same songs over and over. I feel like I've been hearing the same songs of my favorite artists in the daily mixes. I guess Spotify is more targeted towards people who want comfort listening, not discovery.
+| forum | Spotify recommendations are terrible. Listened to a few anime covers, now all my Discover Weekly is filled with them. I keep trying to dislike them but it does not work.
+| forum | Why are recommendations so bad? The algorithm updated and now it literally recommends the same 5 songs no matter what genre I listen to.
+| forum | Make the Don't play this artist feature actually block recommendations. Artists I have blocked still show up in Album Picks and other recommendation sections.
+| forum | Keep getting recommended songs over and over in the recommended songs feature on playlists. I keep seeing the same tracks every week even after dismissing them.
+| forum | Spotify heavily favors exploitation over exploration, which is why the same tracks seem to loop relentlessly in algorithmic playlists. The company's primary metric is not expanding musical horizons but maximizing session length. Unfamiliar music is treated as a high-risk gamble.
+| forum | I have about 1,000 songs in my liked songs playlist but when I shuffle it always plays the same 200-300 and never the rest. Why is that?
+| forum | Has anyone noticed how Spotify limits its shuffle feature? It keeps playing the same songs repeatedly instead of giving you a real mix from a 3,000+ song playlist.
+| forum | I have all these playlists on Spotify and YouTube Music but I keep playing the same songs over and over. How do I stop?
+| forum | Whenever you press shuffle the computer pre-selects an order and saves it, playing the same order again next time thinking you want it. This is why the same songs keep coming up repeatedly.
+| forum | I listened to a few ASMR episodes on Spotify. Now I literally do not get anything else recommended. There should be an option to not get something recommended when you no longer want it.
+| forum | I keep getting the same recommended songs over and over in the recommended songs feature. Simple yes or no to recommended songs please.
+| forum | Make Don't play this artist actually block recommendations — artists I've selected still show up in other sections.
+| forum | Smart Shuffle only plays recommended tracks — no liked songs or songs from my playlists are playing in the queue.
+| forum | Spotify recommendations is bad! The algorithm recommends the same 5 songs no matter what genre I listen to.
+| forum | Please add a Not Interested button. I have been using Spotify for many years and still receive a lot of recommendations I'm not interested in.
+| forum | I listened to a past podcast for literally 2 seconds because I was curious. Now after 3 months I still see it as my first recommendation.
+| forum | Spotify recommendations are bad — the algorithm recommends the same 5 songs no matter what genre I listen to.
+| forum | Make Don't play this artist actually block recommendations. Artists I've selected still show up in other sections like Album Picks.
+| forum | Smart Shuffle only plays recommended tracks — no liked songs or songs from my playlists are playing or visible in the queue.
+| forum | The platform is increasingly flooded with AI-generated songs especially in Release Radar, making it harder to discover authentic human-created music. Please add an option to mark or disable AI generated songs.
+| forum | I was listening to 60s music and was recommended an AI generated song of the surf rock genre, which I found problematic. Spotify Support confirmed I was recommended AI music based on my listening history with no way to opt out.
+| forum | Please base recommendations on the music I actually listen to. I'm not interested in the general recommendations of mainstream artists you promote. Base it on user preferences so I'm more likely to discover new music I actually want.
+| forum | I was growing tired of my kids skewing my recommendations and what I saw on my home page. Family members listening to completely different music poisoned my discovery playlists and radio stations.
+| forum | I keep getting the same recommended songs over and over in the recommended songs feature even after adding or dismissing them. Simple yes or no to recommended songs please.
+| forum | I don't want to listen to music that's not in my playlist. Please give me an option to disable the playing recommended songs for you feature.
+| forum | I am being shown music in a language I don't understand despite never liking any of it. It's an irritant where I think I could get better recommendations as a paying user.
+
+# ---------- SOCIAL MEDIA (public X/Twitter, etc.) ----------
+# Replace these examples with real posts you collect:
+| social | Spotify is killing appreciation of music, because its algorithm force-feeds you stuff you may like. But the joy of discovery is removed.
+| social | Those contexts include Spotify Radio, Autoplay, and Spotify Mixes — meaning it is not just a visible ad banner. It is inside recommendation flows that many users experience as the algorithm choosing music for them.
+| social | Spotify made a deal with record labels that if they pay lower royalty rates they'll play certain songs more frequently, so that's partly why you get the same songs over and over again.
+| social | Switched to YouTube Music last month. Spotify always used to play the same songs everywhere. With YouTube Music I can pick a song and the algorithm mixes songs I love with new similar songs.
+| social | Those contexts include Spotify Radio, Autoplay, and Spotify Mixes — it is not just a visible ad banner. It is inside recommendation and listening flows that many users experience as the algorithm choosing music for them.
+| social | Spotify is killing appreciation of music because its algorithm force-feeds you stuff you may like. But the joy of discovery is removed.
+| social | Spotify recommendations are terrible. It's new music discovery is terrible. Get back to basics — they're pushing the same songs to everyone with no real discovery.
+| social | Discovery Weekly used to feel like true discovery. Now my discovery feeds and mixes are almost all blandware bullshit, podcasts and payola.
+| social | The one thing I used to defend about Spotify was that its algorithms genuinely introduced me to good new music. But now my discovery feeds are almost all bland content and payola.
+| social | My Spotify Discovery Weekly has gone down the toilet. It's all the same type of genre I don't have any interest in.
+| social | Third week Spotify has recommended me almost exclusively electroswing and video game music in my discovery playlist. I guess they think I've regressed back to my high school self.
+| social | Spotify's algorithm suggestions just started serving up the worst dog shit music in the discovery weeklys — why?
+| social | Tidal daily discovery mogs Spotify in every way.
+| social | I only found out about Spotify in 2022 and I used to LOVE the weekly discovery queue. I found so much new music, whole new genres. Now it's 70% slop. I don't even try anymore.
+| social | Why is it so hard for Spotify to give me a playlist of songs I've never listened to before? They have the data. They benefit from spreading listens. They would actually be helping with discovery instead of discouraging it.
+| social | Spotify is killing appreciation of music because its force-feeding algorithm deduced stuff you may like. But the joy of discovery is removed.
+| social | Half assed remixes and features are running new music discovery on Spotify. Release Radar was the reason I went back to Spotify but it's now just artists gaming the algo to get the same stuff in there every week.
+| social | Spotify Discovery Mode IS payola. Instead of paying upfront to get played, artists agree to reduced royalties which Spotify keeps. It's not pay for play, it's stream now pay later.
+| social | Spotify is killing appreciation of music because its force-feeding algo deduced stuff that you may like. But the joy of discovery is removed.
+| social | Spotify did not save you from bad taste. It just made sure you'd never find out you had it. Discover Weekly isn't discovery. It's a vending machine that learned your order and stopped asking.
+| social | Back like 10 years ago Spotify was great for finding new music. Now a lot of the playlisting is paid for, and the discovery algorithm is off its rocker. Only the fans also like section is helpful to me but even that is limiting.
+| social | I only found out about Spotify in 2022 and I used to LOVE the weekly discovery queue, I found so much new music, whole new genres. Now it's 70% slop. I don't even try anymore.
+| social | Seriously Spotify, please give me a block artist feature so they don't get recommended anymore as discovery songs. The algorithm used to be good, now it's full of AI slop.
+| social | Last week's discovery playlist had 30 songs. Out of that 30, only 10 songs had nothing to do with vocaloid even though I don't listen to vocaloid songs that much on Spotify.
+| social | I hate how Spotify lumps all Japanese or vocaloid music into anime genre. My weekly discovery sucks.
+| social | I mainly like Spotify for song and artist discovery but I'm edging closer to giving up on the whole thing.
+| social | Release Radar was the reason I went back to Spotify but it's now just artists gaming the algo to get the same stuff in there every week — half-assed remixes and features running new music discovery.
+| social | Spotify Discovery Mode is payola. Artists agree to a 30% royalty reduction and Spotify keeps it. They're bumped in recommendations. It's stream now pay later.
+| social | Spotify keeps adding features no one asked for like SongDNA. People already rely on third-party apps for social music discovery and utilities Spotify doesn't offer.
+| social | Discovery Weekly is not discovery anymore since the subcategorization — it just serves old stuff now.
+| social | I really like discovering new music. But this is completely broken when they start shoving AI generated music into my discovery playlists. Not to mention it isn't evident anywhere that these are AI tracks.
+| social | The algorithms of Spotify and YouTube Music are fundamentally poisoned by business models, pushing cheap-to-license tracks instead of actual discovery.
+| social | Spotify already gives you access to more music than any human could listen to in a lifetime. It's insane to think we need AI to generate more instead of better discovery algorithms. The only reason is you don't need to pay royalties to AI.
+
+# ---------- REDDIT (copied from browser — no API needed) ----------
+# Replace these examples with real comments you collect:
+| reddit | I had my own routine, on a Monday/Tuesday I'd listen to Discover Weekly and put 1 or 2 songs into my liked songs. Done this for years and discovered lots of artists. Now it's all in different categories and I need to listen to 5 categories and over 100 songs, most of which I don't want to save.
+| reddit | My Discover Weekly has gone down the toilet since these changes. It's all the same type of genre that I don't really have any interest in listening to.
+| reddit | I kinda wish I could get it to stop suggesting extremely popular tracks from the 70s and 80s. Yes it's great music, no I do not need your help to discover it. If I wanted that stuff I'd just turn on the radio.
+| reddit | Having the same issue, it's so annoying. I already know about these songs and they're great but I'd rather actually discover new songs based on my playlists. Also getting random rap from artists I could care less about.
+| reddit | It used to be great at recommending songs aligned with my taste and able to surprise me, but since the last update it became horrible.
+| reddit | Earlier it often brought me great music I had never heard of before. Now it has become very boring. I barely press like on one song every four weeks. I am considering dropping Spotify as the weekly feed was what I loved about Spotify.
+| reddit | Everyone keeps praising Spotify's recommendations and saying it constantly finds new music you'll love, but for me it's the opposite. It feels like it keeps looping the same stuff over and over. I've discovered maybe 50 new artists at best, after that Spotify just keeps recycling the same tracks in every mix. Even when I hide certain songs they show up again in other mixes.
+| reddit | I told AI DJ to play songs I've never heard. The second song was one of the songs that appears in every playlist it creates for me.
+| reddit | Anyone else used to love Spotify for discovering new music but find that lately it's just the same hundred or so songs on repeat no matter what playlists you try? I want DJ for new music, not just music I've heard 1,000 times already.
+| reddit | Autoplay similar songs always selects the same songs in the exact same order.
+| reddit | I've been really into a certain album lately. Every time I play it through, Spotify follows it up automatically with the exact same songs. Every single time, for months.
+| reddit | It boggles my mind how little control Spotify gives to its users. At least allow some sliders and some blocking of genre/artist/song lists. It's maddening to have so little control over discovery on a platform with 100 million tracks.
+| reddit | Every single day my DJ says okay let's take it back to your top played in 2016/2017/2018. Please give me something else. Since DJ came out there have only been 4 songs it recommended that I actually liked. I just want some fresh stuff.
+| reddit | I look forward to Friday and Monday when Release Radar and Discover Weekly refresh as that's the only time I get new music. Most of the genre playlists contain all the same songs and that's the problem. I want a bottomless Discover Weekly.
+| reddit | I have a playlist that's like 13 hours long and only like 10 songs from that playlist play on repeat.
+| reddit | Spotify wants you trapped in their playlists. You are listening to songs they want to promote.
+| reddit | I want a Discovery level option on Spotify. Currently most of the songs on Daily Mixes or Autoplay are songs that I already liked. Sometimes I want more unfamiliar music.
+| reddit | Spotify wants you trapped in their playlists. You are listening to songs they want to promote.
+# ============================================================================
+# ^ Delete the example lines above once you've added your own real posts.
+# Add your collected posts below, one per line:
+4 | app_store | Randomized feature isn't dynamic. Has tendency to play the same songs over in playlists and never move through the playlist over time. Frustrating. Doesn't catch song repeats as you are building playlists and should have a way to default to song version only to avoid videos. You can select in playlists but should be able to set a feature that you only want to see audio when searching to build playlists. Eats up phone memory if you are downloading for travel.
+4 | app_store | I love the broad selection and the ability to make custom playlists, revisit previous eras of my listening history, and the social features like sharing music with friends. My only qualm is the shuffle feature, which in my opinion still is biased to certain artists or songs and is not truly shuffling a playlist randomly. Having the shuffle feature be more random, showing less songs that are frequently played, would be a huge improvement.
+5 | app_store | Small issue, but I used to be able to see my liked songs from just my library and it was the exact amount and when I press liked songs, it shows a different amount. The numbers are close, but I like to be able to know and progress with how much I have. Also another random thing that would be cool is tagging other playlists in descriptions on a playlist so you get lead to that other one. That's about it. Love the app!
+5 | app_store | I love it because it has thousands of songs to choose from. It is also great because it has playlists made already on there so you don't need to spend quite a while trying to make one. For example, I only had to search Halloween Playlist and like twelve Halloween playlists showed up. You don't even need to put capitalization in it.
+5 | app_store | I have had this app since 2013 when I joined the Navy. I deploy often and every time this app bugs out. Downloaded content will suddenly not be available. I spend hours downloading one song then later when there is no connection the song disappears off downloaded content. I don't know why I haven't made the full switch to itunes. Maybe the nostalgia or my playlists. But if you are in the military this app is not for you.
+5 | app_store | I'm sure you know how relied upon you are, and I think the power has gotten to your head, like so many other platform subscriptions. You screw over not only the people not paying for premium but even the ones who do pay the $12 a month. It's just too many ads and this is coming from someone WITH premium. For a company who promotes a love of music you sure know nothing about vibe and atmosphere. Both of which are broken by the stupid ads.
+4 | app_store | I understand that this app was recently launched in our region and has limited bollywood songs but apart from that there are few things which can be improved. App is smooth and works like a charm but even after selecting highest audio quality I don't feel a difference in the quality. Also it would be cool to see a video preview for songs which have short videos included when sharing on social media.
+1 | app_store | This app has to be the stupidest thing to exist, their only motive remaining is to fish money. It is getting worse increasingly, to the point where you can't select a song after a number of times, you can't skip ahead or to the previous song. I redownloaded this app and I see that my liked songs playlist is completely empty after years of songs saved in it. The app isn't playing any songs anymore and is glitching out before playing a song I select, but is still capable of playing the ads.
+1 | app_store | The advertisements are endless and even when they say you will have 30 minutes of uninterrupted listening there are still ads in the middle of it. There have been terrible changes that caused many people to stop using this app because there are so many music apps that are better. Firstly they do not allow playlists to be played in their original order, only works in shuffle mode. They also only let you search and select a song till a limit and don't let you move forward or back in a song anymore.
+1 | app_store | The app is good for the songs it has but after the update that came in October it changed everything. To even play songs back and forth you have to buy premium and playlists don't work properly, random songs come in between and many more ads come after every song. It is so irritating, I can't listen to songs because I know there will be random songs that I don't even like.

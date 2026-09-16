@@ -1,0 +1,78 @@
+name: Daily Spotify Discovery Pipeline
+
+on:
+  schedule:
+    # 10:00 AM IST = 04:30 UTC daily
+    - cron: '30 4 * * *'
+  workflow_dispatch:
+    inputs:
+      play_store_days:
+        description: 'Number of days to scrape from Play Store'
+        required: false
+        default: '7'
+        type: string
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          echo "Installing Python dependencies..."
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          echo "Dependencies installed."
+
+      - name: Run Play Store scraper
+        env:
+          PLAY_STORE_DAYS: ${{ github.event.inputs.play_store_days || '7' }}
+        run: |
+          echo "Starting Play Store scraper for ${PLAY_STORE_DAYS} days..."
+          python ingestion/play_store.py --days ${PLAY_STORE_DAYS} --max-reviews 100
+          echo "Play Store scraper completed."
+
+      - name: Run Paste importer
+        run: |
+          echo "Starting Paste importer..."
+          python ingestion/paste_importer.py
+          echo "Paste importer completed."
+
+      - name: Classify unclassified reviews
+        run: |
+          echo "Starting classifier..."
+          if [ "${{ github.event_name }}" == "schedule" ]; then
+            python classify.py --limit 50 --model llama-3.1-8b-instant
+          else
+            python classify.py --limit 20 --model llama-3.1-8b-instant
+          fi
+          echo "Classifier completed."
+
+      - name: Aggregate insights
+        run: |
+          echo "Starting aggregation..."
+          python aggregate.py
+          echo "Aggregation completed."
+
+      - name: Commit updated insights
+        run: |
+          echo "Checking for updated insights files..."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet insights.json || (git add insights.json && git commit -m "chore: update insights.json [skip ci]" && git push)
+          echo "Insights commit step complete."

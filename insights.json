@@ -1,0 +1,41 @@
+{
+  "total_reviews": 5,
+  "discovery_related": {
+    "count": 5,
+    "percent": 100.0
+  },
+  "by_frustration_type": {
+    "stale_recommendations": 4,
+    "over_personalization": 1
+  },
+  "by_segment": {
+    "active_explorer": 5
+  },
+  "by_desired_behavior": {
+    "find_new_artists": 3,
+    "break_routine": 2
+  },
+  "by_source": {
+    "forum": 5
+  },
+  "segment_x_frustration_crosstab": {
+    "active_explorer": {
+      "over_personalization": 1,
+      "stale_recommendations": 4
+    }
+  },
+  "top_root_causes": {
+    "Too personalized, lacking variety in recommendations.": 1,
+    "Repeated songs in daily mixes cause boredom": 1,
+    "Repeated songs in discovery station.": 1,
+    "Repeated songs cause lack of discovery": 1,
+    "Echo chamber repeats same songs, limiting new artist discovery.": 1
+  },
+  "top_unmet_needs": {
+    "Need more diverse, genre-spanning suggestions.": 1,
+    "Need variety in recommendations": 1,
+    "Variety in discovery station.": 1,
+    "Need variety of new tracks": 1,
+    "Need variety beyond current listening.": 1
+  }
+}
