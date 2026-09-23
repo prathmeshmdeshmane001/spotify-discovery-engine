@@ -8,11 +8,12 @@ An end-to-end pipeline that ingests Spotify user reviews from multiple sources, 
 
 ---
 
-## Live Demo
+## Live Demos
 
 | Link | What it shows |
 |---|---|
-| [Live Pipeline Demo](https://spotify-discovery-engine-tdxfxcecgfxkrvc4hpon2v.streamlit.app) | Test the workflow — scrape, classify, insights |
+| [Live Review Pipeline Demo](https://spotify-discovery-engine-tdxfxcecgfxkrvc4hpon2v.streamlit.app) | Real-time review scraping, Groq classification & insights engine |
+| [Discovery Dial Web App](https://discovery-dial.vercel.app) *(Deploy via Vercel)* | Modern interactive Spotify Discovery Dial with Web Audio previews & Groq LLM explainability |
 
 ---
 
