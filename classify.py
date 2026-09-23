@@ -116,54 +116,66 @@ def classify_review(text, groq_client, model="llama-3.3-70b-versatile"):
     """
     prompt = f"{TAXONOMY}\n\nReview text:\n{text}\n\nClassification:"
     
-    for attempt in range(MAX_RETRIES):
-        try:
-            response = groq_client.chat.completions.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant that classifies Spotify reviews according to a fixed taxonomy. Return ONLY valid JSON."},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0,
-                response_format={"type": "json_object"}
-            )
-            
-            result_text = response.choices[0].message.content
-            
-            # Strip JSON fences if present
-            result_text = re.sub(r'^```json\s*', '', result_text)
-            result_text = re.sub(r'^```\s*', '', result_text)
-            result_text = re.sub(r'\s*```$', '', result_text)
-            
-            # Parse JSON
-            result = json.loads(result_text)
-            
-            return result
-            
-        except Exception as e:
-            error_str = str(e)
-            
-            # Check for token rate limit
-            if "rate_limit_exceeded" in error_str and "tokens" in error_str:
-                # Extract wait time from error message (e.g., "Please try again in 8m38.4s")
-                time_match = re.search(r'Please try again in (\d+m)?(\d+\.?\d*)s?', error_str)
-                if time_match:
-                    minutes = int(time_match.group(1)[:-1]) if time_match.group(1) else 0
-                    seconds = float(time_match.group(2))
-                    wait_time = minutes * 60 + seconds
-                    print(f"    ⏳ Token rate limit reached. Waiting {wait_time:.0f}s ({minutes}m{seconds:.0f}s)...")
-                    time.sleep(wait_time)
+    models_to_try = [model]
+    fallback_model = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
+    if fallback_model not in models_to_try:
+        models_to_try.append(fallback_model)
+    if "openai/gpt-oss-20b" not in models_to_try:
+        models_to_try.append("openai/gpt-oss-20b")
+
+    for current_model in models_to_try:
+        for attempt in range(MAX_RETRIES):
+            try:
+                response = groq_client.chat.completions.create(
+                    model=current_model,
+                    messages=[
+                        {"role": "system", "content": "You are a helpful assistant that classifies Spotify reviews according to a fixed taxonomy. Return ONLY valid JSON."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0,
+                    response_format={"type": "json_object"}
+                )
+                
+                result_text = response.choices[0].message.content
+                
+                # Strip JSON fences if present
+                result_text = re.sub(r'^```json\s*', '', result_text)
+                result_text = re.sub(r'^```\s*', '', result_text)
+                result_text = re.sub(r'\s*```$', '', result_text)
+                
+                # Parse JSON
+                result = json.loads(result_text)
+                
+                return result
+                
+            except Exception as e:
+                error_str = str(e)
+                
+                # If model not found / deprecated, fall back to next model
+                if "model_not_found" in error_str or "404" in error_str or "model_decommissioned" in error_str:
+                    print(f"    ⚠️ Model {current_model} not available ({e}), trying next model...")
+                    break
+                
+                # Check for token rate limit
+                if "rate_limit_exceeded" in error_str and "tokens" in error_str:
+                    time_match = re.search(r'Please try again in (\d+m)?(\d+\.?\d*)s?', error_str)
+                    if time_match:
+                        minutes = int(time_match.group(1)[:-1]) if time_match.group(1) else 0
+                        seconds = float(time_match.group(2))
+                        wait_time = minutes * 60 + seconds
+                        print(f"    ⏳ Token rate limit reached. Waiting {wait_time:.0f}s ({minutes}m{seconds:.0f}s)...")
+                        time.sleep(wait_time)
+                        continue
+                
+                # Check for 429 rate limit (non-token)
+                if "429" in error_str and attempt < MAX_RETRIES - 1:
+                    print(f"    ⏳ Rate limited (429), backing off {RETRY_BACKOFF}s...")
+                    time.sleep(RETRY_BACKOFF)
                     continue
-            
-            # Check for 429 rate limit (non-token)
-            if "429" in error_str and attempt < MAX_RETRIES - 1:
-                print(f"    ⏳ Rate limited (429), backing off {RETRY_BACKOFF}s...")
-                time.sleep(RETRY_BACKOFF)
-                continue
-            
-            print(f"    ✗ Classification error: {e}")
-            return None
-    
+                
+                print(f"    ✗ Classification error with {current_model}: {e}")
+                break
+        
     return None
 
 def upsert_tagged_review(review_id, classification, groq_client):
@@ -216,7 +228,7 @@ def main():
     """Main execution function."""
     parser = argparse.ArgumentParser(description="Classify Spotify reviews")
     parser.add_argument("--limit", type=int, default=None, help="Maximum number of reviews to classify")
-    default_model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+    default_model = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
     parser.add_argument("--model", type=str, default=default_model, help="Groq model to use for classification")
     args = parser.parse_args()
 

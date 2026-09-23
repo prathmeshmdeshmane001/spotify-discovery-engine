@@ -8,7 +8,7 @@ import streamlit.components.v1 as components
 import plotly.express as px
 import pandas as pd
 
-from backend import run_live_demo, trigger_full_pipeline, get_pipeline_step_status, load_insights, _parse_repo
+from backend import run_live_demo, trigger_full_pipeline, get_pipeline_step_status, load_insights, _parse_repo, get_recent_tagged_reviews
 
 # --- Page config ---
 st.set_page_config(
@@ -541,23 +541,28 @@ with tab_research:
 # Tab 3: Pipeline Insights (live)
 # ========================
 with tab_pipeline:
-    st.header("Pipeline Insights")
-    st.caption(
-        "Live pipeline data — updates daily via GitHub Actions scheduler. "
-        "Total includes all reviews classified since June 2026."
-    )
+    c_title, c_sync = st.columns([3, 1])
+    with c_title:
+        st.header("📊 Pipeline Insights")
+        st.caption(
+            "Real-time pipeline intelligence · Live aggregated from Supabase & classified via Groq (`openai/gpt-oss-20b`)."
+        )
+    with c_sync:
+        if st.button("🔄 Sync Live Data", use_container_width=True):
+            st.rerun()
 
     try:
         insights = load_insights()
     except Exception as e:
-        st.warning(f"Could not load insights.json: {e}")
+        st.warning(f"Could not load insights: {e}")
         insights = {}
 
     if insights:
-        # Last updated
-        last_updated = insights.get("generated_at") or insights.get("last_updated")
-        if last_updated:
-            st.caption(f"Last updated: {last_updated}")
+        source_type = insights.get("source_type", "live_database")
+        if source_type == "live_database":
+            st.success("🟢 **Live Database Synchronized** — Data queried directly from Supabase PostgreSQL.")
+        else:
+            st.info("📁 **Cached Pipeline Dataset** — Showing latest aggregated snapshot.")
 
         total_pi = insights.get("total_reviews", 0)
         disc_pi = insights.get("discovery_related", {})
@@ -572,97 +577,222 @@ with tab_pipeline:
         top_frust_pi = max(by_frust_pi, key=by_frust_pi.get) if by_frust_pi else "N/A"
         top_frust_cnt_pi = by_frust_pi.get(top_frust_pi, 0)
 
+        # KPI Metrics
         pi_c1, pi_c2, pi_c3, pi_c4 = st.columns(4)
-        pi_c1.metric("Total Reviews", str(total_pi))
-        pi_c2.metric("Discovery-related", str(disc_count_pi), f"{disc_pct_pi}%")
-        pi_c3.metric("Dominant Segment", dom_seg_pi, str(dom_seg_cnt_pi))
-        pi_c4.metric("Top Frustration", top_frust_pi, str(top_frust_cnt_pi))
+        pi_c1.metric("Total Classified", str(total_pi), "Real-time")
+        pi_c2.metric("Discovery Frustration", f"{disc_pct_pi}%", f"{disc_count_pi} / {total_pi}")
+        pi_c3.metric("Dominant Persona", dom_seg_pi.replace('_', ' ').title(), f"{dom_seg_cnt_pi} users")
+        pi_c4.metric("Top Frustration", top_frust_pi.replace('_', ' ').title(), f"{top_frust_cnt_pi} reports")
 
         st.divider()
 
+        # Primary Visualizations
         pi_col_a, pi_col_b = st.columns(2)
 
         with pi_col_a:
-            st.subheader("Frustration Types")
+            st.subheader("🎯 Frustration Breakdown")
             if by_frust_pi:
                 df_pi_frust = pd.DataFrame(
                     {"Frustration Type": list(by_frust_pi.keys()), "Count": list(by_frust_pi.values())}
                 ).sort_values("Count", ascending=True)
-                fig = px.bar(df_pi_frust, x="Count", y="Frustration Type", orientation="h",
-                             color="Count", color_continuous_scale=["#181818", SPOTIFY_GREEN],
-                             template="plotly_dark")
-                fig.update_layout(paper_bgcolor=DARK_BG, plot_bgcolor=DARK_BG,
-                                  font_color="#ffffff", margin=dict(l=20, r=20, t=20, b=20))
+                fig = px.bar(
+                    df_pi_frust,
+                    x="Count",
+                    y="Frustration Type",
+                    orientation="h",
+                    color="Count",
+                    color_continuous_scale=["#181818", SPOTIFY_GREEN],
+                    text="Count",
+                    template="plotly_dark",
+                )
+                fig.update_layout(
+                    paper_bgcolor=DARK_BG,
+                    plot_bgcolor=DARK_BG,
+                    font_color="#ffffff",
+                    margin=dict(l=20, r=20, t=20, b=20),
+                    showlegend=False,
+                )
+                fig.update_traces(textposition="outside")
                 st.plotly_chart(fig, use_container_width=True)
 
         with pi_col_b:
-            st.subheader("Segment Distribution")
+            st.subheader("👥 User Persona Segmentation")
             if by_seg_pi:
                 df_pi_seg = pd.DataFrame(
                     {"Segment": list(by_seg_pi.keys()), "Count": list(by_seg_pi.values())}
                 ).sort_values("Count", ascending=False)
-                fig = px.bar(df_pi_seg, x="Segment", y="Count",
-                             color="Count", color_continuous_scale=["#181818", SPOTIFY_GREEN],
-                             template="plotly_dark")
-                fig.update_layout(paper_bgcolor=DARK_BG, plot_bgcolor=DARK_BG,
-                                  font_color="#ffffff", margin=dict(l=20, r=20, t=20, b=20))
+                fig = px.bar(
+                    df_pi_seg,
+                    x="Segment",
+                    y="Count",
+                    color="Count",
+                    color_continuous_scale=["#181818", SPOTIFY_GREEN],
+                    text="Count",
+                    template="plotly_dark",
+                )
+                fig.update_layout(
+                    paper_bgcolor=DARK_BG,
+                    plot_bgcolor=DARK_BG,
+                    font_color="#ffffff",
+                    margin=dict(l=20, r=20, t=20, b=20),
+                    showlegend=False,
+                )
+                fig.update_traces(textposition="outside")
                 st.plotly_chart(fig, use_container_width=True)
 
+        # Crosstab Heatmap
         crosstab_pi = insights.get("segment_x_frustration_crosstab", {})
         if crosstab_pi:
-            st.subheader("Segment × Frustration Crosstab")
+            st.subheader("🔥 Segment × Frustration Pain-Point Matrix")
             pi_segs = list(crosstab_pi.keys())
             pi_frusts = sorted(set(f for sv in crosstab_pi.values() for f in sv.keys()))
             df_pi_heat = pd.DataFrame(
                 {seg: [crosstab_pi[seg].get(f, 0) for f in pi_frusts] for seg in pi_segs},
                 index=pi_frusts,
             ).T
-            fig = px.imshow(df_pi_heat, color_continuous_scale=["#181818", SPOTIFY_GREEN],
-                            template="plotly_dark", aspect="auto", text_auto=True)
-            fig.update_layout(paper_bgcolor=DARK_BG, plot_bgcolor=DARK_BG,
-                              font_color="#ffffff", xaxis_title="Frustration Type", yaxis_title="Segment")
+            fig = px.imshow(
+                df_pi_heat,
+                color_continuous_scale=["#121212", "#1a3d24", SPOTIFY_GREEN],
+                template="plotly_dark",
+                aspect="auto",
+                text_auto=True,
+            )
+            fig.update_layout(
+                paper_bgcolor=DARK_BG,
+                plot_bgcolor=DARK_BG,
+                font_color="#ffffff",
+                xaxis_title="Frustration Type",
+                yaxis_title="User Segment",
+                margin=dict(l=20, r=20, t=30, b=20),
+            )
             st.plotly_chart(fig, use_container_width=True)
 
+        # Root Causes & Unmet Needs
         pi_col_c, pi_col_d = st.columns(2)
 
         with pi_col_c:
-            st.subheader("Top Root Causes")
+            st.subheader("💡 Top AI-Extracted Root Causes")
             root_pi = insights.get("top_root_causes", {})
             if root_pi:
-                df_pi_root = pd.DataFrame(
-                    {"Root Cause": list(root_pi.keys())[:10], "Count": list(root_pi.values())[:10]}
-                )
-                fig = px.bar(df_pi_root, x="Count", y="Root Cause", orientation="h",
-                             color="Count", color_continuous_scale=["#181818", SPOTIFY_GREEN],
-                             template="plotly_dark")
-                fig.update_layout(paper_bgcolor=DARK_BG, plot_bgcolor=DARK_BG,
-                                  font_color="#ffffff", margin=dict(l=20, r=20, t=20, b=20))
-                st.plotly_chart(fig, use_container_width=True)
+                for idx, (cause, count) in enumerate(list(root_pi.items())[:6], 1):
+                    st.markdown(
+                        f"""
+                        <div style="background:#181818;padding:0.75rem 1rem;border-radius:8px;margin-bottom:0.5rem;border-left:3px solid {SPOTIFY_GREEN};">
+                            <span style="color:#b3b3b3;font-size:0.85rem;">#{idx} Root Cause · {count} mentions</span>
+                            <div style="color:#ffffff;font-size:0.95rem;margin-top:2px;">{cause}</div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
 
         with pi_col_d:
-            st.subheader("Top Unmet Needs")
+            st.subheader("🎯 Top Unmet Listener Needs")
             needs_pi = insights.get("top_unmet_needs", {})
             if needs_pi:
-                df_pi_needs = pd.DataFrame(
-                    {"Unmet Need": list(needs_pi.keys())[:10], "Count": list(needs_pi.values())[:10]}
+                for idx, (need, count) in enumerate(list(needs_pi.items())[:6], 1):
+                    st.markdown(
+                        f"""
+                        <div style="background:#181818;padding:0.75rem 1rem;border-radius:8px;margin-bottom:0.5rem;border-left:3px solid #1ed760;">
+                            <span style="color:#b3b3b3;font-size:0.85rem;">#{idx} Unmet Need · {count} requests</span>
+                            <div style="color:#ffffff;font-size:0.95rem;margin-top:2px;">{need}</div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+
+        st.divider()
+
+        # Review Source & Desired Behavior Breakdown
+        pi_col_e, pi_col_f = st.columns(2)
+
+        with pi_col_e:
+            st.subheader("🎵 Desired Behaviors")
+            by_beh_pi = insights.get("by_desired_behavior", {})
+            if by_beh_pi:
+                df_beh = pd.DataFrame({"Behavior": list(by_beh_pi.keys()), "Count": list(by_beh_pi.values())})
+                fig = px.pie(
+                    df_beh,
+                    names="Behavior",
+                    values="Count",
+                    color_discrete_sequence=["#1DB954", "#1ed760", "#282828", "#3e3e3e", "#535353", "#737373"],
+                    template="plotly_dark",
                 )
-                fig = px.bar(df_pi_needs, x="Count", y="Unmet Need", orientation="h",
-                             color="Count", color_continuous_scale=["#181818", SPOTIFY_GREEN],
-                             template="plotly_dark")
-                fig.update_layout(paper_bgcolor=DARK_BG, plot_bgcolor=DARK_BG,
-                                  font_color="#ffffff", margin=dict(l=20, r=20, t=20, b=20))
+                fig.update_layout(paper_bgcolor=DARK_BG, plot_bgcolor=DARK_BG, font_color="#ffffff", margin=dict(l=20, r=20, t=20, b=20))
                 st.plotly_chart(fig, use_container_width=True)
 
-        by_src_pi = insights.get("by_source", {})
-        if by_src_pi:
-            st.subheader("Review Source Breakdown")
-            df_pi_src = pd.DataFrame({"Source": list(by_src_pi.keys()), "Count": list(by_src_pi.values())})
-            fig = px.pie(df_pi_src, names="Source", values="Count",
-                         color_discrete_sequence=["#1DB954", "#1ed760", "#2a2a2a", "#333333", "#444444"],
-                         template="plotly_dark")
-            fig.update_layout(paper_bgcolor=DARK_BG, plot_bgcolor=DARK_BG,
-                              font_color="#ffffff", margin=dict(l=20, r=20, t=20, b=20))
-            st.plotly_chart(fig, use_container_width=True)
+        with pi_col_f:
+            st.subheader("📱 Data Ingestion Sources")
+            by_src_pi = insights.get("by_source", {})
+            if by_src_pi:
+                df_pi_src = pd.DataFrame({"Source": list(by_src_pi.keys()), "Count": list(by_src_pi.values())})
+                fig = px.pie(
+                    df_pi_src,
+                    names="Source",
+                    values="Count",
+                    color_discrete_sequence=["#1DB954", "#1ed760", "#282828", "#3e3e3e", "#535353"],
+                    template="plotly_dark",
+                )
+                fig.update_layout(paper_bgcolor=DARK_BG, plot_bgcolor=DARK_BG, font_color="#ffffff", margin=dict(l=20, r=20, t=20, b=20))
+                st.plotly_chart(fig, use_container_width=True)
+
+        st.divider()
+
+        # --- Interactive Classified Reviews Feed ---
+        st.subheader("📝 Live Classified Reviews Explorer")
+        st.caption("Inspect individual reviews classified by the Groq taxonomy pipeline directly from Supabase.")
+
+        all_tagged_reviews = get_recent_tagged_reviews(limit=60)
+        if all_tagged_reviews:
+            col_search, col_f_seg, col_f_frust = st.columns([2, 1, 1])
+            with col_search:
+                search_q = st.text_input("🔍 Search review text...", placeholder="e.g. recommend, repeat, daily mix, genre")
+            with col_f_seg:
+                seg_filter = st.selectbox("Filter Persona", ["All Personas"] + sorted(list(set(r["segment"] for r in all_tagged_reviews))))
+            with col_f_frust:
+                frust_filter = st.selectbox("Filter Frustration", ["All Frustrations"] + sorted(list(set(r["frustration_type"] for r in all_tagged_reviews))))
+
+            # Filter data
+            filtered_reviews = all_tagged_reviews
+            if search_q:
+                filtered_reviews = [r for r in filtered_reviews if search_q.lower() in r["text"].lower()]
+            if seg_filter != "All Personas":
+                filtered_reviews = [r for r in filtered_reviews if r["segment"] == seg_filter]
+            if frust_filter != "All Frustrations":
+                filtered_reviews = [r for r in filtered_reviews if r["frustration_type"] == frust_filter]
+
+            st.caption(f"Showing **{len(filtered_reviews)}** matching reviews (out of {len(all_tagged_reviews)} most recent):")
+
+            for r in filtered_reviews[:20]:
+                rating_stars = "⭐" * int(r.get("rating") or 0)
+                source_badge = r.get("source", "play_store").replace("_", " ").title()
+                discovery_badge = (
+                    '<span class="tag tag-yes">Discovery Frustration</span>'
+                    if r.get("discovery_related")
+                    else '<span class="tag tag-no">Non-Discovery</span>'
+                )
+                st.markdown(
+                    f"""
+                    <div class="review-card">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                            <span style="font-size:0.85rem;color:#b3b3b3;">{source_badge} · {rating_stars}</span>
+                            <div>{discovery_badge}</div>
+                        </div>
+                        <p style="color:#ffffff;font-size:0.95rem;line-height:1.4;margin-bottom:12px;">"{r['text']}"</p>
+                        <div>
+                            <span class="tag tag-segment">👤 {r.get('segment')}</span>
+                            <span class="tag tag-frustration">⚠️ {r.get('frustration_type')}</span>
+                            <span class="tag" style="background:#282828;color:#b3b3b3;">🎯 {r.get('desired_behavior')}</span>
+                        </div>
+                        <div style="font-size:0.85rem;color:#b3b3b3;margin-top:6px;">
+                            <b>Root Cause:</b> {r.get('root_cause', 'N/A')} &nbsp;|&nbsp; <b>Unmet Need:</b> {r.get('unmet_need', 'N/A')}
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+        else:
+            st.info("No classified review records retrieved yet.")
+
     else:
         st.info("No insights data available yet. Run the pipeline to generate insights.")
 

@@ -104,10 +104,10 @@ MAX_RETRIES = 3
 SLEEP_BETWEEN_REQUESTS = 0.5
 RETRY_BACKOFF = 2
 
-# Production classifier model (slower but more accurate)
-GROQ_MODEL = _get_secret("GROQ_MODEL") or "llama-3.3-70b-versatile"
+# Production classifier model
+GROQ_MODEL = _get_secret("GROQ_MODEL") or "openai/gpt-oss-20b"
 # Fallback model used silently when the production model hits rate limits
-GROQ_FALLBACK_MODEL = _get_secret("GROQ_FALLBACK_MODEL") or "llama-3.1-8b-instant"
+GROQ_FALLBACK_MODEL = _get_secret("GROQ_FALLBACK_MODEL") or "openai/gpt-oss-20b"
 
 
 def _get_groq_client():
@@ -450,15 +450,70 @@ def _parse_repo():
 
 def load_insights():
     """
-    Load insights.json from project root.
-
-    Returns:
-        Full insights dict
+    Load insights dynamically from Supabase (live) if credentials are available,
+    and fallback to insights.json.
     """
+    try:
+        supabase = _get_supabase_client()
+        response = (
+            supabase.table("tagged_reviews")
+            .select("*, raw_reviews(source, rating, review_date, text)")
+            .execute()
+        )
+        if response.data and len(response.data) > 0:
+            from aggregate import calculate_insights
+            insights = calculate_insights(response.data)
+            insights["source_type"] = "live_database"
+            return insights
+    except Exception as e:
+        print(f"Live insights fetch failed, falling back to insights.json: {e}")
+
     project_root = os.path.dirname(os.path.abspath(__file__))
     insights_path = os.path.join(project_root, "insights.json")
-    with open(insights_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    try:
+        with open(insights_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            data["source_type"] = "cached_file"
+            return data
+    except Exception as e:
+        print(f"Failed to read insights.json: {e}")
+        return {}
+
+
+def get_recent_tagged_reviews(limit=50):
+    """
+    Fetch the most recent classified reviews with full taxonomy metadata.
+    """
+    try:
+        supabase = _get_supabase_client()
+        response = (
+            supabase.table("tagged_reviews")
+            .select("*, raw_reviews(source, rating, review_date, text)")
+            .order("id", desc=True)
+            .limit(limit)
+            .execute()
+        )
+        reviews = []
+        for r in response.data or []:
+            raw = r.get("raw_reviews") or {}
+            reviews.append({
+                "id": r.get("id"),
+                "text": raw.get("text", ""),
+                "rating": raw.get("rating", 0),
+                "source": raw.get("source", "play_store"),
+                "review_date": raw.get("review_date", ""),
+                "segment": r.get("segment", "unknown"),
+                "frustration_type": r.get("frustration_type", "none"),
+                "desired_behavior": r.get("desired_behavior", "none"),
+                "root_cause": r.get("root_cause", ""),
+                "unmet_need": r.get("unmet_need", ""),
+                "discovery_related": r.get("discovery_related", False),
+                "sentiment": r.get("sentiment", "neutral"),
+            })
+        return reviews
+    except Exception as e:
+        print(f"Error fetching recent tagged reviews: {e}")
+        return []
 
 
 def get_pipeline_run_status():
