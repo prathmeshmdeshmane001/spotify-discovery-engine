@@ -163,6 +163,9 @@ def classify_review(text, groq_client, model="llama-3.3-70b-versatile"):
                         minutes = int(time_match.group(1)[:-1]) if time_match.group(1) else 0
                         seconds = float(time_match.group(2))
                         wait_time = minutes * 60 + seconds
+                        if wait_time > 15:
+                            print(f"    ⏳ Rate limit cooldown ({wait_time:.0f}s) exceeds 15s budget. Stopping to keep pipeline responsive.")
+                            return None
                         print(f"    ⏳ Token rate limit reached. Waiting {wait_time:.0f}s ({minutes}m{seconds:.0f}s)...")
                         time.sleep(wait_time)
                         continue

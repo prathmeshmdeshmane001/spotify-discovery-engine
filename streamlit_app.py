@@ -168,7 +168,7 @@ def render_review_cards(reviews):
 
 # --- Tabs ---
 tab_live, tab_pipeline, tab_architecture, tab_research = st.tabs(
-    ["Live Demo", "Pipeline Insights", "Architecture", "Research Insights"]
+    ["🎧 Live Pipeline & Demo", "📊 Live Pipeline Insights", "🏗️ Architecture", "🔬 Baseline Study (456 Benchmark)"]
 )
 
 # ========================
@@ -313,13 +313,14 @@ with tab_live:
         elif run_status in ("failure", "cancelled", "timed_out"):
             st.session_state["pipeline_polling"] = False
             st.error(f"Pipeline ended with status: {run_status}")
-        elif poll_count < 60:
+        elif poll_count < 90:
             st.session_state["pipeline_poll_count"] = poll_count + 1
-            _time.sleep(8)
+            _time.sleep(4)
             st.rerun()
         else:
             st.session_state["pipeline_polling"] = False
-            st.warning("Pipeline tracker timed out. Check GitHub Actions for status.")
+            st.warning("⏱️ Pipeline run is taking longer than usual on GitHub Actions.")
+            st.info("💡 You can check live progress directly at: [GitHub Actions Runs](https://github.com/prathmeshmdeshmane001/spotify-discovery-engine/actions). When done, switch to '📊 Live Pipeline Insights' to see updated data!")
 
 
     # --- Persistent View Pipeline Insights button (inside Tab 1) ---
@@ -358,12 +359,14 @@ RESEARCH_FINDINGS = {
 }
 
 # ========================
-# Tab 2: Research Insights
+# Tab 4: Baseline Benchmark Study (Static 456 Reviews)
 # ========================
 with tab_research:
-    st.header("Research Insights")
-    st.caption(
-        "Initial research dataset — 456 reviews collected June 2026. These findings drove the Discovery Dial concept."
+    st.header("🔬 Baseline Research Study (456 Reviews Benchmark)")
+    st.info(
+        "📌 **Historical Benchmark Dataset (Fixed at 456 reviews)**: This tab displays the original foundational research dataset of 456 reviews collected across 6 sources in June 2026. "
+        "It acts as a permanent baseline benchmark to evaluate how live listener frustrations compare against historical data.\n\n"
+        "👉 **Looking for Live Data that updates when you run the pipeline?** Switch to the **'📊 Live Pipeline Insights'** tab!"
     )
 
     r = RESEARCH_FINDINGS
