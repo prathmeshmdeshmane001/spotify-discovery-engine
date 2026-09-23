@@ -8,7 +8,7 @@ import streamlit.components.v1 as components
 import plotly.express as px
 import pandas as pd
 
-from backend import run_live_demo, trigger_full_pipeline, get_pipeline_step_status, load_insights, _parse_repo, get_recent_tagged_reviews
+from backend import run_live_demo, trigger_full_pipeline, get_pipeline_step_status, load_insights, load_cumulative_insights, _parse_repo, get_recent_tagged_reviews
 
 # --- Page config ---
 st.set_page_config(
@@ -544,30 +544,40 @@ with tab_research:
 # Tab 3: Pipeline Insights (live)
 # ========================
 with tab_pipeline:
-    c_title, c_sync = st.columns([3, 1])
+    c_title, c_toggle, c_sync = st.columns([3, 2, 1])
     with c_title:
-        st.header("📊 Pipeline Insights")
+        st.header("📊 Live Pipeline Insights")
         st.caption(
             "Real-time pipeline intelligence · Live aggregated from Supabase & classified via Groq (`openai/gpt-oss-20b`)."
+        )
+    with c_toggle:
+        combine_baseline = st.checkbox(
+            "Append live to 456 baseline",
+            value=True,
+            help="When enabled, newly scraped reviews are appended on top of the 456 baseline research study."
         )
     with c_sync:
         if st.button("🔄 Sync Live Data", use_container_width=True):
             st.rerun()
 
     try:
-        insights = load_insights()
+        insights = load_cumulative_insights(include_baseline=combine_baseline)
     except Exception as e:
         st.warning(f"Could not load insights: {e}")
         insights = {}
 
     if insights:
-        source_type = insights.get("source_type", "live_database")
-        if source_type == "live_database":
-            st.success("🟢 **Live Database Synchronized** — Data queried directly from Supabase PostgreSQL.")
-        else:
-            st.info("📁 **Cached Pipeline Dataset** — Showing latest aggregated snapshot.")
-
         total_pi = insights.get("total_reviews", 0)
+        live_cnt = insights.get("live_reviews", 0)
+        base_cnt = insights.get("baseline_reviews", 456)
+
+        if combine_baseline:
+            st.success(
+                f"🟢 **Cumulative Dataset (456 + Live)** — {base_cnt} baseline research reviews + {live_cnt} live scraped reviews = **{total_pi} total reviews** analyzed."
+            )
+        else:
+            st.info(f"🟢 **Live Scraped Reviews Only** — Showing {total_pi} newly ingested and classified reviews from Supabase.")
+
         disc_pi = insights.get("discovery_related", {})
         disc_count_pi = disc_pi.get("count", 0)
         disc_pct_pi = disc_pi.get("percent", 0)
@@ -582,7 +592,10 @@ with tab_pipeline:
 
         # KPI Metrics
         pi_c1, pi_c2, pi_c3, pi_c4 = st.columns(4)
-        pi_c1.metric("Total Classified", str(total_pi), "Real-time")
+        if combine_baseline:
+            pi_c1.metric("Total Reviews", str(total_pi), f"+{live_cnt} Live Scraped")
+        else:
+            pi_c1.metric("Total Reviews", str(total_pi), "Live Only")
         pi_c2.metric("Discovery Frustration", f"{disc_pct_pi}%", f"{disc_count_pi} / {total_pi}")
         pi_c3.metric("Dominant Persona", dom_seg_pi.replace('_', ' ').title(), f"{dom_seg_cnt_pi} users")
         pi_c4.metric("Top Frustration", top_frust_pi.replace('_', ' ').title(), f"{top_frust_cnt_pi} reports")

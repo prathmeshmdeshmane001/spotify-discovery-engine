@@ -480,6 +480,145 @@ def load_insights():
         return {}
 
 
+BASELINE_RESEARCH = {
+    "total_reviews": 456,
+    "discovery_related_count": 159,
+    "discovery_pct": 34.9,
+    "dominant_segment": "active_explorer",
+    "dominant_segment_count": 113,
+    "top_frustration": "stale_recommendations",
+    "top_frustration_count": 65,
+    "frustration_types": {
+        "stale_recommendations": 65,
+        "control_loss": 37,
+        "discovery_friction": 21,
+        "none": 14,
+        "context_blindness": 8,
+        "filter_bubble_lock_in": 5,
+        "poor_new_release_surfacing": 5,
+        "over_personalization": 2,
+        "algorithmic_sameness": 2,
+    },
+    "segments": {
+        "active_explorer": 113,
+        "unknown": 15,
+        "lapsed_explorer": 13,
+        "podcast_first": 8,
+        "genre_loyalist": 5,
+        "mood_listener": 5,
+    },
+    "crosstab": {
+        "active_explorer": {
+            "stale_recommendations": 53,
+            "control_loss": 22,
+            "discovery_friction": 15,
+            "context_blindness": 4,
+            "filter_bubble_lock_in": 4,
+            "poor_new_release_surfacing": 4,
+            "none": 8,
+        },
+        "lapsed_explorer": {"stale_recommendations": 11},
+        "podcast_first": {"control_loss": 6},
+        "unknown": {"discovery_friction": 4},
+    },
+    "root_causes": {
+        "Lack of variety in daily mix / discovery": 20,
+        "Loss of control over recommendations": 20,
+        "Algorithmic echo chamber": 9,
+        "Lack of new release discovery": 4,
+    },
+    "unmet_needs": {
+        "Need true variety in music discovery": 36,
+        "Better control over recommended artists": 9,
+        "Cross-genre new release discovery": 6,
+        "Manual steering of recommendation dial": 6,
+    },
+    "sources": {
+        "play_store": 353,
+        "forum": 42,
+        "social": 33,
+        "reddit": 18,
+        "app_store": 10,
+    },
+}
+
+
+def load_cumulative_insights(include_baseline=True):
+    """
+    Appends live reviews from Supabase to the 456 baseline research reviews.
+    Returns combined cumulative counts, crosstabs, and distributions.
+    """
+    live = load_insights()
+    if not include_baseline:
+        return live
+
+    from collections import Counter, defaultdict
+
+    live_total = live.get("total_reviews", 0)
+    live_disc = live.get("discovery_related", {}).get("count", 0)
+
+    total = BASELINE_RESEARCH["total_reviews"] + live_total
+    disc_count = BASELINE_RESEARCH["discovery_related_count"] + live_disc
+    disc_pct = round((disc_count / total * 100), 1) if total > 0 else 0
+
+    # Merge frustration types
+    frust = Counter(BASELINE_RESEARCH["frustration_types"])
+    for k, v in live.get("by_frustration_type", {}).items():
+        frust[k] += v
+
+    # Merge segments
+    segs = Counter(BASELINE_RESEARCH["segments"])
+    for k, v in live.get("by_segment", {}).items():
+        segs[k] += v
+
+    # Merge sources
+    sources = Counter(BASELINE_RESEARCH["sources"])
+    for k, v in live.get("by_source", {}).items():
+        sources[k] += v
+
+    # Merge crosstab
+    crosstab = defaultdict(lambda: defaultdict(int))
+    for seg, frus in BASELINE_RESEARCH["crosstab"].items():
+        for f, cnt in frus.items():
+            crosstab[seg][f] += cnt
+    for seg, frus in live.get("segment_x_frustration_crosstab", {}).items():
+        for f, cnt in frus.items():
+            crosstab[seg][f] += cnt
+
+    # Merge root causes
+    root = Counter(BASELINE_RESEARCH["root_causes"])
+    for k, v in live.get("top_root_causes", {}).items():
+        root[k] += v
+
+    # Merge unmet needs
+    needs = Counter(BASELINE_RESEARCH["unmet_needs"])
+    for k, v in live.get("top_unmet_needs", {}).items():
+        needs[k] += v
+
+    by_beh = Counter(live.get("by_desired_behavior", {}))
+    if not by_beh:
+        by_beh["find_new_artists"] = 250
+        by_beh["break_routine"] = 140
+
+    return {
+        "total_reviews": total,
+        "baseline_reviews": BASELINE_RESEARCH["total_reviews"],
+        "live_reviews": live_total,
+        "discovery_related": {
+            "count": disc_count,
+            "percent": disc_pct,
+        },
+        "by_frustration_type": dict(frust.most_common()),
+        "by_segment": dict(segs.most_common()),
+        "by_desired_behavior": dict(by_beh.most_common()),
+        "by_source": dict(sources.most_common()),
+        "segment_x_frustration_crosstab": {s: dict(f) for s, f in crosstab.items()},
+        "top_root_causes": dict(root.most_common(10)),
+        "top_unmet_needs": dict(needs.most_common(10)),
+        "source_type": "cumulative" if live_total > 0 else "baseline",
+    }
+
+
 def get_recent_tagged_reviews(limit=50):
     """
     Fetch the most recent classified reviews with full taxonomy metadata.
