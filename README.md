@@ -12,7 +12,7 @@ An end-to-end pipeline that ingests Spotify user reviews from multiple sources, 
 
 | Link | What it shows |
 |---|---|
-| [Live Pipeline Demo](https://spotify-discovery-engine-icedwrwrsufiahmd2st5fs.streamlit.app/) | Test the workflow — scrape, classify, insights |
+| [Live Pipeline Demo](https://spotify-discovery-engine-tdxfxcecgfxkrvc4hpon2v.streamlit.app) | Test the workflow — scrape, classify, insights |
 | [Discovery Dial Prototype](https://discovery-dial-mu.vercel.app) | The feature concept built from these findings |
 
 ---
@@ -80,14 +80,14 @@ spotify-discovery-engine/
 ## How to Test the Workflow
 
 **Option 1 — Streamlit app (easiest, recommended):**
-Open [Live Pipeline Demo](https://spotify-discovery-engine-icedwrwrsufiahmd2st5fs.streamlit.app/) → Tab 1 → Click "Classify 5 Fresh Reviews" → Watch the pipeline classify real Spotify reviews in real time → See session insights.
+Open [Live Pipeline Demo](https://spotify-discovery-engine-tdxfxcecgfxkrvc4hpon2v.streamlit.app) → Tab 1 → Click "Classify 5 Fresh Reviews" → Watch the pipeline classify real Spotify reviews in real time → See session insights.
 
 **Option 2 — GitHub Actions (full pipeline):**
-Go to [Actions tab](https://github.com/pbehuray/spotify-discovery-engine/actions) → pipeline.yml → Run workflow → Watch all 5 steps run automatically in the logs.
+Go to [Actions tab](https://github.com/prathmeshmdeshmane001/spotify-discovery-engine/actions) → pipeline.yml → Run workflow → Watch all 5 steps run automatically in the logs.
 
 **Option 3 — Local run:**
 ```bash
-git clone https://github.com/pbehuray/spotify-discovery-engine
+git clone https://github.com/prathmeshmdeshmane001/spotify-discovery-engine
 cd spotify-discovery-engine
 pip install -r requirements.txt
 # Add GROQ_API_KEY, SUPABASE_URL, SUPABASE_KEY to .env
@@ -104,7 +104,7 @@ streamlit run streamlit_app.py
 
 **1. Clone and install:**
 ```bash
-git clone https://github.com/pbehuray/spotify-discovery-engine
+git clone https://github.com/prathmeshmdeshmane001/spotify-discovery-engine
 pip install -r requirements.txt
 ```
 
@@ -158,7 +158,6 @@ Manual trigger available via `workflow_dispatch` in the Actions tab.
 ## Related
 
 - **Discovery Dial Prototype** — [discovery-dial-mu.vercel.app](https://discovery-dial-mu.vercel.app)
-- **Discovery Dial Repo** — [github.com/pbehuray/discovery-dial](https://github.com/pbehuray/discovery-dial)
 - **NextLeap Cohort 42** — Spotify feature concept · July 2026
 
 ---

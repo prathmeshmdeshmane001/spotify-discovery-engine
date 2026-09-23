@@ -8,7 +8,7 @@ import streamlit.components.v1 as components
 import plotly.express as px
 import pandas as pd
 
-from backend import run_live_demo, trigger_full_pipeline, get_pipeline_step_status, load_insights
+from backend import run_live_demo, trigger_full_pipeline, get_pipeline_step_status, load_insights, _parse_repo
 
 # --- Page config ---
 st.set_page_config(
@@ -109,7 +109,7 @@ st.markdown(
 
 # --- Header ---
 st.title("🎧 Spotify Discovery Engine")
-st.caption("Live demo of the discovery-frustration classifier")
+st.caption("Live demo of the discovery-frustration classifier · Developed by [Prathamesh Deshmane](https://github.com/prathmeshmdeshmane001)")
 
 # --- Programmatic tab navigation via JS ---
 if st.session_state.get("goto_tab") is not None:
@@ -257,8 +257,9 @@ with tab_live:
 """, unsafe_allow_html=True)
 
         st.info("Pipeline dispatched — tracking progress...")
+        repo = _parse_repo()
         st.markdown(
-            "[View live logs on GitHub Actions →](https://github.com/pbehuray/spotify-discovery-engine/actions)"
+            f"[View live logs on GitHub Actions →](https://github.com/{repo}/actions)"
         )
 
         def render_stages(stages):
@@ -713,11 +714,12 @@ with tab_architecture:
 
     # --- Link buttons ---
     st.subheader("Links")
+    repo = _parse_repo()
     link_col1, link_col2 = st.columns(2)
     with link_col1:
         st.link_button(
             "View Pipeline on GitHub",
-            "https://github.com/pbehuray/spotify-discovery-engine",
+            f"https://github.com/{repo}",
             width="stretch",
         )
     with link_col2:

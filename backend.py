@@ -444,7 +444,7 @@ def _parse_repo():
     """Parse owner/repo from st.secrets or env GITHUB_REPO."""
     repo = _get_secret("GITHUB_REPO")
     if not repo:
-        raise ValueError("GITHUB_REPO not found in st.secrets or environment")
+        return "prathmeshmdeshmane001/spotify-discovery-engine"
     return repo.strip()
 
 
