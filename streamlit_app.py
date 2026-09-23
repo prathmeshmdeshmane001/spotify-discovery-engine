@@ -233,6 +233,18 @@ with tab_live:
                     st.stop()
             except Exception as e:
                 st.error(f"Could not trigger pipeline: {e}")
+                if "GITHUB_TOKEN" in str(e):
+                    st.info(
+                        "💡 **How to enable remote GitHub Actions triggering:**\n\n"
+                        "To trigger GitHub Actions from Streamlit Cloud, add `GITHUB_TOKEN` to your Streamlit secrets:\n"
+                        "1. Go to GitHub: **Settings → Developer Settings → Personal access tokens → Tokens (classic)**.\n"
+                        "2. Click **Generate new token (classic)**, check `repo` and `workflow` scopes, and copy the token (`ghp_...`).\n"
+                        "3. In your Streamlit app, open **Manage app → Settings → Secrets** and add:\n"
+                        "```toml\n"
+                        'GITHUB_TOKEN = "ghp_your_token_here"\n'
+                        "```\n"
+                        "*Note: You can also click **\"Live Demo: Classify 5 Fresh Reviews\"** on the left to test live scraping & Groq classification immediately without needing a GitHub token!*"
+                    )
                 st.stop()
 
             st.session_state["pipeline_run_id"] = result if isinstance(result, int) else None
