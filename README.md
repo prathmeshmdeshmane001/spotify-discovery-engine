@@ -2,7 +2,7 @@
 
 https://github.com/user-attachments/assets/0ea7b1cc-01ae-4a5b-9855-986fc02b6aad
 
-> NextLeap Cohort 42 · Spotify Discovery Dial Feature Concept · July 2026
+> Spotify Discovery Dial Feature Concept · An AI-Native Review Analysis Engine
 
 An end-to-end pipeline that ingests Spotify user reviews from multiple sources, classifies them using Groq LLM, and surfaces insights about music discovery frustrations — specifically targeting the active explorer segment.
 
@@ -13,7 +13,6 @@ An end-to-end pipeline that ingests Spotify user reviews from multiple sources, 
 | Link | What it shows |
 |---|---|
 | [Live Pipeline Demo](https://spotify-discovery-engine-tdxfxcecgfxkrvc4hpon2v.streamlit.app) | Test the workflow — scrape, classify, insights |
-| [Discovery Dial Prototype](https://discovery-dial-mu.vercel.app) | The feature concept built from these findings |
 
 ---
 
@@ -139,7 +138,6 @@ streamlit run streamlit_app.py
 | Aggregation | Python · pandas |
 | Scheduler | GitHub Actions (cron 04:30 UTC daily) |
 | Demo UI | Streamlit |
-| Prototype | React · Vite · Vercel · Groq |
 
 ---
 
@@ -152,13 +150,6 @@ Runs automatically every day at **10:00 AM IST (04:30 UTC)** via GitHub Actions:
 - Commits updated insights back to repo
 
 Manual trigger available via `workflow_dispatch` in the Actions tab.
-
----
-
-## Related
-
-- **Discovery Dial Prototype** — [discovery-dial-mu.vercel.app](https://discovery-dial-mu.vercel.app)
-- **NextLeap Cohort 42** — Spotify feature concept · July 2026
 
 ---
 

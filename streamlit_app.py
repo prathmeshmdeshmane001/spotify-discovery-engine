@@ -724,7 +724,7 @@ with tab_architecture:
         )
     with link_col2:
         st.link_button(
-            "View Prototype",
-            "https://discovery-dial-mu.vercel.app",
+            "Author GitHub Profile",
+            "https://github.com/prathmeshmdeshmane001",
             width="stretch",
         )
