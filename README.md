@@ -1,5 +1,7 @@
 # Spotify Discovery Engine — Review Analysis Pipeline
 
+https://github.com/user-attachments/assets/0ea7b1cc-01ae-4a5b-9855-986fc02b6aad
+
 > NextLeap Cohort 42 · Spotify Discovery Dial Feature Concept · July 2026
 
 An end-to-end pipeline that ingests Spotify user reviews from multiple sources, classifies them using Groq LLM, and surfaces insights about music discovery frustrations — specifically targeting the active explorer segment.
