@@ -1,4 +1,4 @@
-# Spotify Discovery Engine — Product & Project Manager Interview Guide
+# Spotify Discovery Engine
 
 > **Role Perspective**: Growth Product Manager / Technical Project Manager  
 > **Product Focus**: Spotify Discovery & Algorithmic Recommendation Retention  
