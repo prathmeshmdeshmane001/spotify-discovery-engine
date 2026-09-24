@@ -817,18 +817,12 @@ with tab_pipeline:
 # Tab 4: Architecture
 # ========================
 with tab_architecture:
-    st.markdown("""
-        <div style="margin-bottom: 20px;">
-            <h2 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 700; color: #FFFFFF; display: flex; align-items: center; gap: 10px;">
-                <span style="color: #1DB954;">⚡</span> Production Intelligence Pipeline Architecture
-            </h2>
-            <p style="margin: 0; color: #B3B3B3; font-size: 14px; line-height: 1.5;">
-                An end-to-end automated data intelligence pipeline: continuously ingests multi-channel user feedback, 
-                normalizes records in Supabase PostgreSQL, classifies root causes via ultra-fast Groq LPU inference across 7 taxonomy dimensions, 
-                and computes decision-ready analytics for Spotify product & algorithmic teams.
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.subheader("⚡ Production Intelligence Pipeline Architecture")
+    st.caption(
+        "Automated continuous intelligence pipeline: multi-channel feedback ingestion, "
+        "Supabase PostgreSQL staging lake, sub-second Groq LPU inference, Pandas dimensional analytics, "
+        "and scheduled GitHub Actions CI/CD."
+    )
 
     # --- Dynamic Telemetry ---
     try:
@@ -861,181 +855,177 @@ with tab_architecture:
         help="Ultra-low latency Groq LPU inference (~250ms/review) with automated fallback cascade",
     )
 
-    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+    st.write("")
 
-    # --- Sleek Modern SVG Pipeline Diagram ---
-    st.markdown("""
-    <div style="background: linear-gradient(180deg, #181818 0%, #121212 100%); padding: 24px; border-radius: 12px; border: 1px solid #282828; margin-bottom: 24px; overflow-x: auto;">
-        <svg viewBox="0 0 1060 260" width="100%" height="auto" style="min-width: 850px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-            <defs>
-                <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#1DB954" />
-                    <stop offset="100%" stop-color="#14833b" />
-                </linearGradient>
-                <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#242424" />
-                    <stop offset="100%" stop-color="#1a1a1a" />
-                </linearGradient>
-                <linearGradient id="aiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#2a2438" />
-                    <stop offset="100%" stop-color="#1b1724" />
-                </linearGradient>
-                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1DB954" flood-opacity="0.25"/>
-                </filter>
-                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1DB954" />
-                </marker>
-                <marker id="arrowGray" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#535353" />
-                </marker>
-            </defs>
+    # --- Sleek Modern SVG Pipeline Diagram via components.html ---
+    svg_diagram_html = """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    overflow-x: auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+</style>
+</head>
+<body>
+  <div style="background: linear-gradient(180deg, #181818 0%, #121212 100%); padding: 16px 20px; border-radius: 12px; border: 1px solid #282828;">
+    <svg viewBox="0 0 1060 215" width="100%" height="auto" style="min-width: 820px; display: block;">
+      <defs>
+        <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1DB954" />
+          <stop offset="100%" stop-color="#14833b" />
+        </linearGradient>
+        <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#242424" />
+          <stop offset="100%" stop-color="#1a1a1a" />
+        </linearGradient>
+        <linearGradient id="aiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2a2438" />
+          <stop offset="100%" stop-color="#1b1724" />
+        </linearGradient>
+        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1DB954" flood-opacity="0.25"/>
+        </filter>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1DB954" />
+        </marker>
+        <marker id="arrowGray" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#535353" />
+        </marker>
+      </defs>
 
-            <!-- Connector Lines -->
-            <path d="M 185 130 L 235 130" stroke="#1DB954" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arrow)" />
-            <path d="M 395 130 L 445 130" stroke="#1DB954" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arrow)" />
-            <path d="M 605 130 L 655 130" stroke="#1DB954" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arrow)" />
-            <path d="M 815 130 L 865 130" stroke="#1DB954" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arrow)" />
+      <!-- Connectors -->
+      <path d="M 185 115 L 235 115" stroke="#1DB954" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arrow)" />
+      <path d="M 395 115 L 445 115" stroke="#1DB954" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arrow)" />
+      <path d="M 605 115 L 655 115" stroke="#1DB954" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arrow)" />
+      <path d="M 815 115 L 865 115" stroke="#1DB954" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arrow)" />
 
-            <!-- FEEDBACK LOOP / CRON LINE -->
-            <path d="M 945 60 C 945 20, 105 20, 105 60" fill="none" stroke="#535353" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrowGray)" />
-            <text x="525" y="24" fill="#888888" font-size="11" font-weight="600" text-anchor="middle">SCHEDULED AUTOMATION LOOP (GitHub Actions Cron @ 04:30 UTC)</text>
+      <!-- Feedback Cron Line -->
+      <path d="M 945 45 C 945 14, 105 14, 105 45" fill="none" stroke="#535353" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrowGray)" />
+      <text x="525" y="16" fill="#888888" font-size="11" font-weight="600" text-anchor="middle">SCHEDULED AUTOMATION LOOP (GitHub Actions Cron @ 04:30 UTC)</text>
 
-            <!-- STAGE 1: INGESTION -->
-            <g transform="translate(25, 60)">
-                <rect width="160" height="150" rx="10" fill="url(#cardGrad)" stroke="#333333" stroke-width="1.5" />
-                <rect x="0" y="0" width="160" height="6" rx="3" fill="#1DB954" />
-                <rect x="12" y="14" width="60" height="18" rx="4" fill="#0d2818" />
-                <text x="42" y="27" fill="#1DB954" font-size="10" font-weight="700" text-anchor="middle">STAGE 01</text>
-                <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Data Ingestion</text>
-                <text x="12" y="65" fill="#A7A7A7" font-size="11">Multi-Source Feeds</text>
-                <line x1="12" y1="75" x2="148" y2="75" stroke="#333333" stroke-width="1" />
-                <text x="12" y="93" fill="#E0E0E0" font-size="11">✓ Play Store Scraper</text>
-                <text x="12" y="111" fill="#E0E0E0" font-size="11">✓ App Store & Reddit</text>
-                <text x="12" y="129" fill="#E0E0E0" font-size="11">✓ Paste Importer</text>
-            </g>
+      <!-- Stage 1 -->
+      <g transform="translate(25, 45)">
+        <rect width="160" height="145" rx="10" fill="url(#cardGrad)" stroke="#333333" stroke-width="1.5" />
+        <rect x="0" y="0" width="160" height="5" rx="2" fill="#1DB954" />
+        <rect x="12" y="14" width="60" height="18" rx="4" fill="#0d2818" />
+        <text x="42" y="27" fill="#1DB954" font-size="10" font-weight="700" text-anchor="middle">STAGE 01</text>
+        <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Data Ingestion</text>
+        <text x="12" y="64" fill="#A7A7A7" font-size="11">Multi-Source Feeds</text>
+        <line x1="12" y1="74" x2="148" y2="74" stroke="#333333" stroke-width="1" />
+        <text x="12" y="92" fill="#E0E0E0" font-size="11">&#10003; Play Store Scraper</text>
+        <text x="12" y="110" fill="#E0E0E0" font-size="11">&#10003; App Store &amp; Reddit</text>
+        <text x="12" y="128" fill="#E0E0E0" font-size="11">&#10003; Paste Importer</text>
+      </g>
 
-            <!-- STAGE 2: SUPABASE RAW -->
-            <g transform="translate(235, 60)">
-                <rect width="160" height="150" rx="10" fill="url(#cardGrad)" stroke="#333333" stroke-width="1.5" />
-                <rect x="0" y="0" width="160" height="6" rx="3" fill="#3ECF8E" />
-                <rect x="12" y="14" width="60" height="18" rx="4" fill="#143026" />
-                <text x="42" y="27" fill="#3ECF8E" font-size="10" font-weight="700" text-anchor="middle">STAGE 02</text>
-                <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Supabase DB</text>
-                <text x="12" y="65" fill="#A7A7A7" font-size="11">PostgreSQL 15 Lake</text>
-                <line x1="12" y1="75" x2="148" y2="75" stroke="#333333" stroke-width="1" />
-                <text x="12" y="93" fill="#E0E0E0" font-size="11">📁 raw_reviews</text>
-                <text x="12" y="111" fill="#E0E0E0" font-size="11">🔒 Deduplication Index</text>
-                <text x="12" y="129" fill="#E0E0E0" font-size="11">⚡ Unclassified Queue</text>
-            </g>
+      <!-- Stage 2 -->
+      <g transform="translate(235, 45)">
+        <rect width="160" height="145" rx="10" fill="url(#cardGrad)" stroke="#333333" stroke-width="1.5" />
+        <rect x="0" y="0" width="160" height="5" rx="2" fill="#3ECF8E" />
+        <rect x="12" y="14" width="60" height="18" rx="4" fill="#143026" />
+        <text x="42" y="27" fill="#3ECF8E" font-size="10" font-weight="700" text-anchor="middle">STAGE 02</text>
+        <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Supabase DB</text>
+        <text x="12" y="64" fill="#A7A7A7" font-size="11">PostgreSQL 15 Lake</text>
+        <line x1="12" y1="74" x2="148" y2="74" stroke="#333333" stroke-width="1" />
+        <text x="12" y="92" fill="#E0E0E0" font-size="11">&#128193; raw_reviews</text>
+        <text x="12" y="110" fill="#E0E0E0" font-size="11">&#128274; Deduplication Index</text>
+        <text x="12" y="128" fill="#E0E0E0" font-size="11">&#9889; Unclassified Queue</text>
+      </g>
 
-            <!-- STAGE 3: GROQ AI -->
-            <g transform="translate(445, 60)" filter="url(#glow)">
-                <rect width="160" height="150" rx="10" fill="url(#aiGrad)" stroke="#1DB954" stroke-width="2" />
-                <rect x="0" y="0" width="160" height="6" rx="3" fill="#1DB954" />
-                <rect x="12" y="14" width="60" height="18" rx="4" fill="#0d2818" />
-                <text x="42" y="27" fill="#1DB954" font-size="10" font-weight="700" text-anchor="middle">STAGE 03</text>
-                <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Groq LPU AI</text>
-                <text x="12" y="65" fill="#1DB954" font-size="11" font-weight="600">~250ms Ultra-Fast</text>
-                <line x1="12" y1="75" x2="148" y2="75" stroke="#3a3250" stroke-width="1" />
-                <text x="12" y="93" fill="#FFFFFF" font-size="10" font-weight="600">⚡ gpt-oss-20b</text>
-                <text x="12" y="111" fill="#E0E0E0" font-size="11">🎯 7D Taxonomy</text>
-                <text x="12" y="129" fill="#E0E0E0" font-size="11">🛡️ Cascade Fallbacks</text>
-            </g>
+      <!-- Stage 3 -->
+      <g transform="translate(445, 45)" filter="url(#glow)">
+        <rect width="160" height="145" rx="10" fill="url(#aiGrad)" stroke="#1DB954" stroke-width="2" />
+        <rect x="0" y="0" width="160" height="5" rx="2" fill="#1DB954" />
+        <rect x="12" y="14" width="60" height="18" rx="4" fill="#0d2818" />
+        <text x="42" y="27" fill="#1DB954" font-size="10" font-weight="700" text-anchor="middle">STAGE 03</text>
+        <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Groq LPU AI</text>
+        <text x="12" y="64" fill="#1DB954" font-size="11" font-weight="600">~250ms Ultra-Fast</text>
+        <line x1="12" y1="74" x2="148" y2="74" stroke="#3a3250" stroke-width="1" />
+        <text x="12" y="92" fill="#FFFFFF" font-size="10" font-weight="600">&#9889; gpt-oss-20b</text>
+        <text x="12" y="110" fill="#E0E0E0" font-size="11">&#127919; 7D Taxonomy</text>
+        <text x="12" y="128" fill="#E0E0E0" font-size="11">&#128737; Cascade Fallbacks</text>
+      </g>
 
-            <!-- STAGE 4: AGGREGATOR -->
-            <g transform="translate(655, 60)">
-                <rect width="160" height="150" rx="10" fill="url(#cardGrad)" stroke="#333333" stroke-width="1.5" />
-                <rect x="0" y="0" width="160" height="6" rx="3" fill="#1DB954" />
-                <rect x="12" y="14" width="60" height="18" rx="4" fill="#0d2818" />
-                <text x="42" y="27" fill="#1DB954" font-size="10" font-weight="700" text-anchor="middle">STAGE 04</text>
-                <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Aggregator</text>
-                <text x="12" y="65" fill="#A7A7A7" font-size="11">Pandas Intelligence</text>
-                <line x1="12" y1="75" x2="148" y2="75" stroke="#333333" stroke-width="1" />
-                <text x="12" y="93" fill="#E0E0E0" font-size="11">📁 tagged_reviews</text>
-                <text x="12" y="111" fill="#E0E0E0" font-size="11">📊 Cross-Tabulations</text>
-                <text x="12" y="129" fill="#E0E0E0" font-size="11">💾 insights.json</text>
-            </g>
+      <!-- Stage 4 -->
+      <g transform="translate(655, 45)">
+        <rect width="160" height="145" rx="10" fill="url(#cardGrad)" stroke="#333333" stroke-width="1.5" />
+        <rect x="0" y="0" width="160" height="5" rx="2" fill="#1DB954" />
+        <rect x="12" y="14" width="60" height="18" rx="4" fill="#0d2818" />
+        <text x="42" y="27" fill="#1DB954" font-size="10" font-weight="700" text-anchor="middle">STAGE 04</text>
+        <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Aggregator</text>
+        <text x="12" y="64" fill="#A7A7A7" font-size="11">Pandas Intelligence</text>
+        <line x1="12" y1="74" x2="148" y2="74" stroke="#333333" stroke-width="1" />
+        <text x="12" y="92" fill="#E0E0E0" font-size="11">&#128193; tagged_reviews</text>
+        <text x="12" y="110" fill="#E0E0E0" font-size="11">&#128202; Cross-Tabulations</text>
+        <text x="12" y="128" fill="#E0E0E0" font-size="11">&#128190; insights.json</text>
+      </g>
 
-            <!-- STAGE 5: ORCHESTRATION & UI -->
-            <g transform="translate(865, 60)">
-                <rect width="170" height="150" rx="10" fill="url(#cardGrad)" stroke="#333333" stroke-width="1.5" />
-                <rect x="0" y="0" width="170" height="6" rx="3" fill="#1DB954" />
-                <rect x="12" y="14" width="60" height="18" rx="4" fill="#0d2818" />
-                <text x="42" y="27" fill="#1DB954" font-size="10" font-weight="700" text-anchor="middle">STAGE 05</text>
-                <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Presentation</text>
-                <text x="12" y="65" fill="#A7A7A7" font-size="11">Executive Cockpit</text>
-                <line x1="12" y1="75" x2="158" y2="75" stroke="#333333" stroke-width="1" />
-                <text x="12" y="93" fill="#E0E0E0" font-size="11">🖥️ Live Streamlit UI</text>
-                <text x="12" y="111" fill="#E0E0E0" font-size="11">📈 Discovery Analytics</text>
-                <text x="12" y="129" fill="#E0E0E0" font-size="11">🚀 GitHub Actions CI</text>
-            </g>
-        </svg>
-    </div>
-    """, unsafe_allow_html=True)
+      <!-- Stage 5 -->
+      <g transform="translate(865, 45)">
+        <rect width="170" height="145" rx="10" fill="url(#cardGrad)" stroke="#333333" stroke-width="1.5" />
+        <rect x="0" y="0" width="170" height="5" rx="2" fill="#1DB954" />
+        <rect x="12" y="14" width="60" height="18" rx="4" fill="#0d2818" />
+        <text x="42" y="27" fill="#1DB954" font-size="10" font-weight="700" text-anchor="middle">STAGE 05</text>
+        <text x="12" y="48" fill="#FFFFFF" font-size="14" font-weight="700">Presentation</text>
+        <text x="12" y="64" fill="#A7A7A7" font-size="11">Executive Cockpit</text>
+        <line x1="12" y1="74" x2="158" y2="74" stroke="#333333" stroke-width="1" />
+        <text x="12" y="92" fill="#E0E0E0" font-size="11">&#128421; Live Streamlit UI</text>
+        <text x="12" y="110" fill="#E0E0E0" font-size="11">&#128200; Discovery Analytics</text>
+        <text x="12" y="128" fill="#E0E0E0" font-size="11">&#128640; GitHub Actions CI</text>
+      </g>
+    </svg>
+  </div>
+</body>
+</html>
+"""
+    components.html(svg_diagram_html, height=255)
 
-    # --- Architectural Breakdown Cards ---
+    # --- Architectural Breakdown Cards via Native Streamlit Containers ---
     st.subheader("Component Deep-Dive")
     c1, c2 = st.columns(2)
 
     with c1:
-        st.markdown("""
-            <div style="background: #181818; padding: 18px; border-radius: 10px; border: 1px solid #282828; height: 100%;">
-                <div style="color: #1DB954; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Ingestion & Ingestion Lake</div>
-                <h4 style="margin: 4px 0 10px 0; color: #FFFFFF;">1. Data Sourcing & Deduplication</h4>
-                <p style="color: #B3B3B3; font-size: 13px; margin-bottom: 12px; line-height: 1.5;">
-                    Extracts live feedback from <b>Google Play Store</b> via <code>google-play-scraper</code> alongside multi-channel inputs (Apple App Store, Reddit r/spotify, Spotify Community, Twitter/X, and In-App Paste Importer).
-                </p>
-                <div style="background: #121212; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; color: #3ECF8E;">
-                    Table: raw_reviews (id, source, text, rating, created_at, status)
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
+        with st.container(border=True):
+            st.caption("INGESTION & INGESTION LAKE")
+            st.markdown("### 1. Data Sourcing & Deduplication")
+            st.markdown(
+                "Extracts live feedback from **Google Play Store** via `google-play-scraper` alongside multi-channel inputs (Apple App Store, Reddit r/spotify, Spotify Community, Twitter/X, and In-App Paste Importer)."
+            )
+            st.code("Table: raw_reviews (id, source, text, rating, created_at, status)", language="sql")
 
     with c2:
-        st.markdown("""
-            <div style="background: #181818; padding: 18px; border-radius: 10px; border: 1px solid #282828; height: 100%;">
-                <div style="color: #1DB954; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Inference & Taxonomy</div>
-                <h4 style="margin: 4px 0 10px 0; color: #FFFFFF;">2. Groq LPU Classification Engine</h4>
-                <p style="color: #B3B3B3; font-size: 13px; margin-bottom: 12px; line-height: 1.5;">
-                    Utilizes Groq's Language Processing Units (LPU) running <b>openai/gpt-oss-20b</b> for deterministic structured JSON output with under 300ms latency. Employs automatic fallbacks if model limits are reached.
-                </p>
-                <div style="background: #121212; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; color: #1DB954;">
-                    Dimensions: sentiment, frustration, behavior, churn_risk, segment...
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
+        with st.container(border=True):
+            st.caption("INFERENCE & TAXONOMY")
+            st.markdown("### 2. Groq LPU Classification Engine")
+            st.markdown(
+                "Utilizes Groq's Language Processing Units (LPU) running **openai/gpt-oss-20b** for deterministic structured JSON output with under 300ms latency. Employs automatic fallbacks if model limits are reached."
+            )
+            st.code("Dimensions: sentiment, frustration, behavior, churn_risk, segment...", language="python")
 
-    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
     c3, c4 = st.columns(2)
 
     with c3:
-        st.markdown("""
-            <div style="background: #181818; padding: 18px; border-radius: 10px; border: 1px solid #282828; height: 100%;">
-                <div style="color: #1DB954; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Storage & Computation</div>
-                <h4 style="margin: 4px 0 10px 0; color: #FFFFFF;">3. Analytics Aggregator</h4>
-                <p style="color: #B3B3B3; font-size: 13px; margin-bottom: 12px; line-height: 1.5;">
-                    Classified records are stored in <code>tagged_reviews</code>. The Python aggregator (<code>aggregate.py</code>) computes multi-dimensional cross-tabs (User Segment × Frustration Type) and generates static/live JSON artifacts.
-                </p>
-                <div style="background: #121212; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; color: #B3B3B3;">
-                    Output: insights.json & live cumulative telemetry state
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
+        with st.container(border=True):
+            st.caption("STORAGE & COMPUTATION")
+            st.markdown("### 3. Analytics Aggregator")
+            st.markdown(
+                "Classified records are stored in `tagged_reviews`. The Python aggregator (`aggregate.py`) computes multi-dimensional cross-tabs (User Segment × Frustration Type) and generates static/live JSON artifacts."
+            )
+            st.code("Output: insights.json & live cumulative telemetry state", language="text")
 
     with c4:
-        st.markdown("""
-            <div style="background: #181818; padding: 18px; border-radius: 10px; border: 1px solid #282828; height: 100%;">
-                <div style="color: #1DB954; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">CI/CD & Delivery</div>
-                <h4 style="margin: 4px 0 10px 0; color: #FFFFFF;">4. Scheduled Orchestration & Cockpit</h4>
-                <p style="color: #B3B3B3; font-size: 13px; margin-bottom: 12px; line-height: 1.5;">
-                    Automated daily via <b>GitHub Actions</b> (cron <code>04:30 UTC</code>) or on-demand via the Streamlit trigger button. Renders real-time executive discovery intelligence and opportunity spaces.
-                </p>
-                <div style="background: #121212; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; color: #1DB954;">
-                    Trigger: workflow_dispatch & daily scheduled cron
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
+        with st.container(border=True):
+            st.caption("CI/CD & DELIVERY")
+            st.markdown("### 4. Scheduled Orchestration & Cockpit")
+            st.markdown(
+                "Automated daily via **GitHub Actions** (cron `04:30 UTC`) or on-demand via the Streamlit trigger button. Renders real-time executive discovery intelligence and opportunity spaces."
+            )
+            st.code("Trigger: workflow_dispatch & daily scheduled cron", language="text")
 
     # --- Interactive Deep Dives ---
     st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
