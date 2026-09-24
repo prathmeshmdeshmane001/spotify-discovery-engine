@@ -1,80 +1,80 @@
 {
-  "total_reviews": 46,
+  "total_reviews": 47,
   "discovery_related": {
-    "count": 46,
+    "count": 47,
     "percent": 100.0
   },
   "by_frustration_type": {
-    "stale_recommendations": 23,
+    "stale_recommendations": 24,
     "control_loss": 9,
-    "algorithmic_sameness": 4,
     "over_personalization": 3,
+    "algorithmic_sameness": 3,
+    "discovery_friction": 2,
     "poor_new_release_surfacing": 2,
     "context_blindness": 2,
     "none": 1,
-    "discovery_friction": 1,
     "filter_bubble_lock_in": 1
   },
   "by_segment": {
     "active_explorer": 41,
+    "passive_listener": 3,
     "podcast_first": 2,
-    "passive_listener": 2,
     "unknown": 1
   },
   "by_desired_behavior": {
-    "find_new_artists": 20,
-    "break_routine": 17,
-    "none": 8,
+    "find_new_artists": 23,
+    "break_routine": 16,
+    "none": 7,
     "rediscover_back_catalog": 1
   },
   "by_source": {
     "forum": 38,
-    "social": 8
+    "social": 9
   },
   "segment_x_frustration_crosstab": {
     "unknown": {
       "none": 1
     },
-    "active_explorer": {
-      "stale_recommendations": 22,
-      "over_personalization": 3,
-      "discovery_friction": 1,
-      "poor_new_release_surfacing": 2,
-      "control_loss": 6,
-      "algorithmic_sameness": 4,
-      "context_blindness": 2,
-      "filter_bubble_lock_in": 1
-    },
     "podcast_first": {
       "control_loss": 2
     },
+    "active_explorer": {
+      "stale_recommendations": 22,
+      "discovery_friction": 2,
+      "poor_new_release_surfacing": 2,
+      "control_loss": 6,
+      "over_personalization": 3,
+      "context_blindness": 2,
+      "algorithmic_sameness": 3,
+      "filter_bubble_lock_in": 1
+    },
     "passive_listener": {
-      "stale_recommendations": 1,
+      "stale_recommendations": 2,
       "control_loss": 1
     }
   },
   "top_root_causes": {
     "Repeated artists in weekly playlists": 2,
+    "Same songs repeated across all genres": 2,
     "Algorithm chooses music without user control": 1,
-    "Repeated songs in Smart Shuffle cause lack of discovery.": 1,
-    "Recommendations too similar to current listening.": 1,
+    "No way to opt out of unwanted recommendations": 1,
+    "Repeated songs reduce discovery.": 1,
     "Limited variety in Spotify's daily discovery": 1,
     "AI-generated songs dominate Release Radar": 1,
-    "AI-generated songs flood Release Radar.": 1,
-    "Repeated songs in daily mixes cause boredom": 1,
-    "No way to opt out of unwanted recommendations": 1,
-    "Blocked artists still appear in recommendations.": 1
+    "Account hacked, skewed recommendations": 1,
+    "Artist appears despite blocking": 1,
+    "Repeated anime covers dominate recommendations.": 1
   },
   "top_unmet_needs": {
-    "Need variety beyond familiar tracks.": 2,
+    "Variety in recommendations": 2,
     "User wants control over recommendations": 1,
-    "Need variety and new artists.": 1,
+    "Control over recommendation relevance": 1,
+    "Need new, varied songs.": 1,
     "Better daily discovery algorithm": 1,
     "Need to filter out AI-generated tracks": 1,
-    "Discover authentic human-created music.": 1,
-    "Need fresh recommendations": 1,
-    "Discover new artists": 1,
-    "Control over recommendation relevance": 1,
-    "Control over blocked artists in recommendations.": 1
+    "Need to reset recommendations": 1,
+    "Control over recommendations": 1,
+    "Variety beyond anime covers.": 1,
+    "Need full coverage of liked songs": 1
   }
 }
