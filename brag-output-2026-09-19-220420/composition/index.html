@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>Spotify Discovery Engine — Brag</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @font-face {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 100 900;
+    src: url("assets/fonts/outfit-latin.woff2") format("woff2");
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #121212;
+    color: #ffffff;
+    font-family: "Outfit", "Helvetica Neue", Arial, sans-serif;
+  }
+  #root {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #121212;
+  }
+  .clip { position: absolute; inset: 0; }
+  .scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ---------- persistent background ---------- */
+  #bg { position: absolute; inset: 0; }
+  #glow1, #glow2 {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform, opacity;
+  }
+  #glow1 {
+    width: 1000px; height: 1000px;
+    top: -320px; right: -220px;
+    background: radial-gradient(circle, rgba(29,185,84,0.17) 0%, rgba(29,185,84,0.0) 65%);
+  }
+  #glow2 {
+    width: 820px; height: 820px;
+    bottom: -300px; left: -260px;
+    background: radial-gradient(circle, rgba(29,185,84,0.11) 0%, rgba(29,185,84,0.0) 65%);
+  }
+
+  .kicker {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 6px;
+    color: #1DB954;
+  }
+
+  /* ---------- scene 1: hook ---------- */
+  #s1c { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #hook1 {
+    margin: 0;
+    font-size: 88px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.12;
+    text-align: center;
+  }
+  #hook2 {
+    margin: 6px 0 0;
+    font-size: 110px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: #1DB954;
+    text-align: center;
+  }
+  #stamp {
+    margin-top: 54px;
+    background: #1DB954;
+    color: #121212;
+    font-size: 26px;
+    font-weight: 700;
+    padding: 14px 34px;
+    border-radius: 500px;
+  }
+
+  /* ---------- scene 2: pipeline ---------- */
+  #s2c { padding: 96px 140px; }
+  #s2h {
+    margin: 14px 0 0;
+    font-size: 58px;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+  #chips {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .chip {
+    background: #282828;
+    border: 1px solid #3a3a3a;
+    border-radius: 500px;
+    padding: 12px 26px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+  .chip b { color: #1DB954; font-weight: 700; }
+  #pipe {
+    position: absolute;
+    left: 140px;
+    right: 140px;
+    top: 620px;
+    display: flex;
+    justify-content: space-between;
+  }
+  #pipelinel {
+    position: absolute;
+    top: 34px;
+    left: 70px;
+    right: 70px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(29,185,84,0.25), #1DB954);
+    transform-origin: left center;
+  }
+  .node {
+    position: relative;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+  }
+  .node-dot {
+    width: 68px; height: 68px;
+    border-radius: 50%;
+    background: #181818;
+    border: 3px solid #1DB954;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 800;
+    color: #1DB954;
+  }
+  .node-label {
+    margin-top: 16px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  #pipesub {
+    position: absolute;
+    left: 140px;
+    right: 140px;
+    top: 800px;
+    display: flex;
+    justify-content: space-between;
+  }
+  #subgroq { margin-left: 344px; }
+  .pipesub-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    color: #B3B3B3;
+    font-weight: 500;
+  }
+  .pipesub-item .dotmark {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #1DB954;
+    display: inline-block;
+  }
+
+  /* ---------- scene 3: classifier ---------- */
+  #s3stage { position: absolute; inset: 0; }
+  #revcard {
+    position: absolute;
+    left: 528px;
+    top: 212px;
+    width: 864px;
+    background: #181818;
+    border-left: 4px solid #1DB954;
+    border-radius: 14px;
+    padding: 42px 48px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+  }
+  #revmeta {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #B3B3B3;
+  }
+  #revquote {
+    margin-top: 22px;
+    min-height: 158px;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #ffffff;
+  }
+  #revtags {
+    margin-top: 26px;
+    min-height: 56px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .tag {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 500px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .tag-frustration { background: #2a2a2a; color: #ff6b6b; border: 1.5px solid #ff6b6b; }
+  .tag-segment { background: #2a2a2a; color: #1DB954; border: 1.5px solid #1DB954; }
+  .tag-yes { background: #1DB954; color: #121212; }
+  .tag-no { background: #333333; color: #B3B3B3; }
+  #classifybtn {
+    position: absolute;
+    left: 780px;
+    top: 672px;
+    width: 360px;
+    background: #1DB954;
+    color: #121212;
+    font-family: "Outfit", "Helvetica Neue", Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px 0;
+    border-radius: 500px;
+  }
+  #cursor {
+    position: absolute;
+    left: 0; top: 0;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.18);
+    opacity: 0;
+    will-change: transform;
+  }
+  #cursor::after {
+    content: "";
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 6px; height: 6px;
+    margin: -3px 0 0 -3px;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+  #ripple {
+    position: absolute;
+    left: 945px; top: 687px;
+    width: 32px; height: 32px;
+    margin: -16px 0 0 -16px;
+    border-radius: 50%;
+    border: 2px solid #1DB954;
+    opacity: 0;
+  }
+
+  /* ---------- scene 4: findings ---------- */
+  #s4c {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 160px;
+  }
+  #statrow {
+    display: flex;
+    align-items: stretch;
+    gap: 90px;
+    margin-top: 44px;
+  }
+  .stat {
+    text-align: center;
+    min-width: 300px;
+  }
+  .stat-num {
+    font-size: 128px;
+    font-weight: 800;
+    letter-spacing: -3px;
+    color: #1DB954;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .stat-label {
+    margin-top: 18px;
+    font-size: 26px;
+    font-weight: 500;
+    color: #B3B3B3;
+  }
+  .stat + .stat { border-left: 2px solid #2e2e2e; padding-left: 90px; }
+  #s4cap {
+    margin-top: 64px;
+    font-size: 30px;
+    font-weight: 500;
+    color: #ffffff;
+  }
+
+  /* ---------- scene 5: outro ---------- */
+  #s5c {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #s5h {
+    margin: 0;
+    font-size: 72px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    text-align: center;
+  }
+  #dialwrap {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    margin-top: 64px;
+  }
+  #dialsub { width: 560px; }
+  #dialname {
+    margin: 0;
+    font-size: 46px;
+    font-weight: 700;
+  }
+  #dialdesc {
+    margin: 14px 0 0;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #B3B3B3;
+  }
+  #s5foot {
+    position: absolute;
+    bottom: 84px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #B3B3B3;
+  }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="brag" data-start="0" data-width="1920" data-height="1080" data-duration="22">
+
+  <!-- persistent background -->
+  <div id="bg">
+    <div id="glow1"></div>
+    <div id="glow2"></div>
+  </div>
+
+  <!-- Scene 1 · Hook · 0 – 3.4 -->
+  <section id="s1" class="clip" data-start="0" data-duration="3.4" data-track-index="0">
+    <div id="s1c" class="scene">
+      <div>
+        <h1 id="hook1">Your Daily Mix is<br>the same songs.</h1>
+        <h1 id="hook2">Again.</h1>
+      </div>
+      <div id="stamp">456 real user reviews agree.</div>
+    </div>
+  </section>
+
+  <!-- Scene 2 · The pipeline · 3.0 – 8.4 -->
+  <section id="s2" class="clip" data-start="3.0" data-duration="5.4" data-track-index="1">
+    <div id="s2c" class="scene">
+      <div id="s2head">
+        <div id="s2kick" class="kicker">THE PIPELINE</div>
+        <h2 id="s2h">456 reviews. 5 sources. One pipeline.</h2>
+      </div>
+      <div id="chips">
+        <div class="chip" id="chip1">Google Play · <b>353</b></div>
+        <div class="chip" id="chip2">Forums · <b>42</b></div>
+        <div class="chip" id="chip3">X / Twitter · <b>33</b></div>
+        <div class="chip" id="chip4">Reddit · <b>18</b></div>
+        <div class="chip" id="chip5">App Store · <b>10</b></div>
+      </div>
+      <div id="pipe">
+        <div id="pipelinel"></div>
+        <div class="node" id="node1"><div class="node-dot">1</div><div class="node-label">Ingest</div></div>
+        <div class="node" id="node2"><div class="node-dot">2</div><div class="node-label">Classify</div></div>
+        <div class="node" id="node3"><div class="node-dot">3</div><div class="node-label">Segment</div></div>
+        <div class="node" id="node4"><div class="node-dot">4</div><div class="node-label">Aggregate</div></div>
+        <div class="node" id="node5"><div class="node-dot">5</div><div class="node-label">Insights</div></div>
+      </div>
+      <div id="pipesub">
+        <div class="pipesub-item" id="subgroq"><span class="dotmark"></span>Groq · llama-3.3-70b</div>
+        <div class="pipesub-item" id="subgha"><span class="dotmark"></span>GitHub Actions · daily 10:00 IST</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scene 3 · The classifier · 8.0 – 14.4 -->
+  <section id="s3" class="clip" data-start="8.0" data-duration="6.4" data-track-index="2">
+    <div id="s3c" class="scene">
+      <div id="s3stage">
+        <div id="revcard">
+          <div id="revmeta">REVIEW · GOOGLE PLAY</div>
+          <div id="revquote">&ldquo;My daily mixes are just the same songs on repeat every week. I want new artists.&rdquo;</div>
+          <div id="revtags">
+            <span class="tag tag-frustration" id="tag1">frustration: stale_recommendations</span>
+            <span class="tag tag-segment" id="tag2">segment: active_explorer</span>
+            <span class="tag tag-yes" id="tag3">discovery_related: YES</span>
+            <span class="tag tag-no" id="tag4">sentiment: frustrated</span>
+          </div>
+        </div>
+        <div id="classifybtn">Classify with Groq LLM</div>
+        <div id="ripple"></div>
+        <div id="cursor"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scene 4 · The findings · 14.0 – 18.4 -->
+  <section id="s4" class="clip" data-start="14.0" data-duration="4.4" data-track-index="3">
+    <div id="s4c" class="scene">
+      <div id="s4kick" class="kicker">THE FINDINGS</div>
+      <div id="statrow">
+        <div class="stat" id="stat1">
+          <div class="stat-num" id="n1">0</div>
+          <div class="stat-label">discovery-related reviews</div>
+        </div>
+        <div class="stat" id="stat2">
+          <div class="stat-num" id="n2">0%</div>
+          <div class="stat-label">of all reviews mention discovery</div>
+        </div>
+        <div class="stat" id="stat3">
+          <div class="stat-num" id="n3">0</div>
+          <div class="stat-label">active_explorer &times; stale_recommendations</div>
+        </div>
+      </div>
+      <div id="s4cap">The evidence behind the product decision.</div>
+    </div>
+  </section>
+
+  <!-- Scene 5 · Outro · 18.0 – 22 -->
+  <section id="s5" class="clip" data-start="18.0" data-duration="4" data-track-index="4">
+    <div id="s5c" class="scene">
+      <h2 id="s5h">Those numbers became a feature.</h2>
+      <div id="dialwrap">
+        <svg id="dial" width="250" height="250" viewBox="0 0 240 240">
+          <circle cx="120" cy="120" r="100" fill="none" stroke="#282828" stroke-width="12"></circle>
+          <circle id="dialarc" cx="120" cy="120" r="100" fill="none" stroke="#1DB954" stroke-width="12"
+                  stroke-linecap="round" stroke-dasharray="471 628" transform="rotate(-90 120 120)"></circle>
+          <g id="dialticks" opacity="0">
+            <line x1="120" y1="6" x2="120" y2="20" stroke="#B3B3B3" stroke-width="3"/>
+            <line x1="196.6" y1="43.4" x2="186.7" y2="53.3" stroke="#B3B3B3" stroke-width="3"/>
+            <line x1="234" y1="120" x2="220" y2="120" stroke="#B3B3B3" stroke-width="3"/>
+            <line x1="196.6" y1="196.6" x2="186.7" y2="186.7" stroke="#B3B3B3" stroke-width="3"/>
+            <line x1="120" y1="234" x2="120" y2="220" stroke="#B3B3B3" stroke-width="3"/>
+            <line x1="43.4" y1="196.6" x2="53.3" y2="186.7" stroke="#B3B3B3" stroke-width="3"/>
+            <line x1="6" y1="120" x2="20" y2="120" stroke="#B3B3B3" stroke-width="3"/>
+            <line x1="43.4" y1="43.4" x2="53.3" y2="53.3" stroke="#B3B3B3" stroke-width="3"/>
+          </g>
+          <line id="dialneedle" x1="120" y1="120" x2="120" y2="46" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="120" cy="120" r="10" fill="#1DB954"></circle>
+        </svg>
+        <div id="dialsub">
+          <h3 id="dialname">Discovery Dial</h3>
+          <p id="dialdesc">A playlist-level novelty dial, built on what users actually said.</p>
+        </div>
+      </div>
+      <div id="s5foot">PYTHON &middot; GROQ &middot; SUPABASE &middot; GITHUB ACTIONS &middot; STREAMLIT</div>
+    </div>
+  </section>
+
+  <!-- audio -->
+  <audio id="music"
+         src="assets/music/happy-beats-business-moves-vol-12-by-ende-dot-app.mp3"
+         data-start="0" data-duration="22" data-track-index="10"
+         data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.8,"v":0.32},{"t":13.9,"v":0.32},{"t":14.4,"v":0.40},{"t":17.4,"v":0.40},{"t":20.0,"v":0.34},{"t":22,"v":0}]}]}'></audio>
+  <audio id="sfx-stamp" src="assets/sfx/impact/impactSoft_medium_000.ogg" data-start="1.55" data-track-index="11" data-volume="0.55"></audio>
+  <audio id="sfx-chip-a" src="assets/sfx/interface/drop_001.ogg" data-start="3.80" data-track-index="12" data-volume="0.45"></audio>
+  <audio id="sfx-chip-b" src="assets/sfx/interface/drop_002.ogg" data-start="5.32" data-track-index="13" data-volume="0.40"></audio>
+  <audio id="sfx-node-a" src="assets/sfx/interface/click_003.ogg" data-start="6.10" data-track-index="14" data-volume="0.45"></audio>
+  <audio id="sfx-node-b" src="assets/sfx/interface/click_003.ogg" data-start="7.60" data-track-index="15" data-volume="0.45"></audio>
+  <audio id="sfx-click" src="assets/sfx/ui/mouseclick1.ogg" data-start="8.72" data-track-index="16" data-volume="0.60"></audio>
+  <audio id="sfx-tag1" src="assets/sfx/interface/drop_001.ogg" data-start="10.37" data-track-index="17" data-volume="0.40"></audio>
+  <audio id="sfx-tag2" src="assets/sfx/interface/drop_002.ogg" data-start="10.93" data-track-index="18" data-volume="0.36"></audio>
+  <audio id="sfx-tag3" src="assets/sfx/interface/drop_001.ogg" data-start="11.46" data-track-index="19" data-volume="0.36"></audio>
+  <audio id="sfx-tag4" src="assets/sfx/interface/drop_002.ogg" data-start="12.02" data-track-index="20" data-volume="0.40"></audio>
+  <audio id="sfx-stats" src="assets/sfx/impact/impactSoft_medium_000.ogg" data-start="14.35" data-track-index="21" data-volume="0.50"></audio>
+  <audio id="sfx-dial" src="assets/sfx/interface/bong_001.ogg" data-start="18.54" data-track-index="22" data-volume="0.50"></audio>
+</div>
+
+<script src="assets/audio-data.js"></script>
+<script>
+  const tl = gsap.timeline({ paused: true });
+
+  /* ---------- persistent background: ambient breathing ---------- */
+  tl.fromTo("#glow1", { scale: 1 }, { scale: 1.06, duration: 5.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+  tl.fromTo("#glow2", { scale: 1.05 }, { scale: 1, duration: 6.5, ease: "sine.inOut", yoyo: true, repeat: 2 }, 0.4);
+
+  /* ---------- audio-reactive: glows breathe with music RMS/bass (per-frame sampling) ---------- */
+  const glow1 = document.getElementById("glow1");
+  const glow2 = document.getElementById("glow2");
+  for (let f = 0; f < AUDIO_DATA.totalFrames; f++) {
+    tl.call(
+      (function (frame) {
+        return function () {
+          const bands = frame.bands;
+          const bass = bands[0] || 0;
+          const amp = bands.reduce((a, b) => a + b, 0) / bands.length;
+          gsap.set(glow1, { opacity: 0.75 + bass * 0.5, scale: 1 + bass * 0.06 });
+          gsap.set(glow2, { opacity: 0.65 + amp * 0.7 });
+        };
+      })(AUDIO_DATA.frames[f]),
+      [],
+      f / AUDIO_DATA.fps
+    );
+  }
+
+  /* ---------- Scene 1 · Hook ---------- */
+  tl.fromTo("#s1c", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.02);
+  tl.fromTo("#hook1", { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 0.12);
+  // beat-grid: "Again." snaps to beat 1.09
+  tl.fromTo("#hook2", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }, 1.09);
+  // beat-grid: stamp snaps to beat 1.64 (nudged -0.09 for reading time)
+  tl.fromTo("#stamp", { scale: 0.6, y: 18, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.7)" }, 1.55);
+  tl.to("#s1c", { opacity: 0, duration: 0.38, ease: "power1.in" }, 3.0);
+
+  /* ---------- Scene 2 · The pipeline ---------- */
+  tl.fromTo("#s2c", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 3.02);
+  tl.fromTo("#s2head", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 3.15);
+  // beat-grid: chips pop on consecutive beats 3.82 / 4.39 / 4.91 / 5.34 / 6.00
+  tl.fromTo("#chip1", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.9)" }, 3.82);
+  tl.fromTo("#chip2", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.9)" }, 4.39);
+  tl.fromTo("#chip3", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.9)" }, 4.91);
+  tl.fromTo("#chip4", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.9)" }, 5.34);
+  tl.fromTo("#chip5", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.9)" }, 6.00);
+
+  tl.fromTo("#pipelinel", { scaleX: 0 }, { scaleX: 1, duration: 1.5, ease: "power2.inOut" }, 6.1);
+  // natural timing for node energize (readability; beats too tight before scene exit)
+  tl.fromTo("#node1 .node-dot", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(1.9)" }, 6.15);
+  tl.fromTo("#node1 .node-label", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 6.22);
+  tl.fromTo("#node2 .node-dot", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(1.9)" }, 6.45);
+  tl.fromTo("#node2 .node-label", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 6.52);
+  tl.fromTo("#node3 .node-dot", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(1.9)" }, 6.75);
+  tl.fromTo("#node3 .node-label", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 6.82);
+  tl.fromTo("#node4 .node-dot", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(1.9)" }, 7.05);
+  tl.fromTo("#node4 .node-label", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 7.12);
+  tl.fromTo("#node5 .node-dot", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(1.9)" }, 7.35);
+  tl.fromTo("#node5 .node-label", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 7.42);
+  tl.fromTo("#subgroq", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 6.6);
+  tl.fromTo("#subgha", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 7.15);
+  tl.to("#s2c", { opacity: 0, duration: 0.38, ease: "power1.in" }, 8.0);
+
+  /* ---------- Scene 3 · The classifier ---------- */
+  tl.fromTo("#s3c", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 8.02);
+  tl.fromTo("#revcard", { y: 44, scale: 0.96, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.55, ease: "power3.out" }, 8.15);
+  tl.fromTo("#classifybtn", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 8.45);
+
+  // simulated cursor: enter, travel, click
+  tl.fromTo("#cursor", { x: 1290, y: 980, opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 8.2);
+  tl.to("#cursor", { x: 938, y: 668, duration: 0.45, ease: "power2.inOut" }, 8.28);
+
+  // beat-locked: 8.74s (strong cue) — the classifier click
+  tl.to("#cursor", { scale: 0.82, duration: 0.09, ease: "power1.in" }, 8.74);
+  tl.to("#classifybtn", { scale: 0.94, duration: 0.09, ease: "power1.in" }, 8.74);
+  tl.fromTo("#ripple", { scale: 0.4, opacity: 0.85 }, { scale: 2.8, opacity: 0, duration: 0.6, ease: "power2.out" }, 8.74);
+  tl.to("#cursor", { scale: 1, duration: 0.25, ease: "back.out(2)" }, 8.85);
+  tl.to("#classifybtn", { scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 8.85);
+  tl.to("#cursor", { x: 1120, y: 760, opacity: 0, duration: 0.5, ease: "power1.in" }, 9.5);
+
+  // beat-grid: taxonomy tags snap on beats 10.37 / 10.93 / 11.46 / 12.02
+  tl.fromTo("#tag1", { scale: 0.5, opacity: 0, y: 12 }, { scale: 1, opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 10.37);
+  tl.fromTo("#tag2", { scale: 0.5, opacity: 0, y: 12 }, { scale: 1, opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 10.93);
+  tl.fromTo("#tag3", { scale: 0.5, opacity: 0, y: 12 }, { scale: 1, opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 11.46);
+  tl.fromTo("#tag4", { scale: 0.5, opacity: 0, y: 12 }, { scale: 1, opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 12.02);
+  tl.to("#s3c", { opacity: 0, duration: 0.38, ease: "power1.in" }, 14.0);
+
+  /* ---------- Scene 4 · The findings ---------- */
+  tl.fromTo("#s4c", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 14.02);
+  tl.fromTo("#s4kick", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 14.15);
+  tl.fromTo("#stat1", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 14.3);
+  tl.fromTo("#stat2", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 14.5);
+  tl.fromTo("#stat3", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 14.7);
+
+  const c1 = { v: 0 };
+  tl.to(c1, {
+    v: 159, duration: 1.15, ease: "power2.out",
+    onUpdate: () => { document.getElementById("n1").textContent = Math.round(c1.v); }
+  }, 14.45);
+  const c2 = { v: 0 };
+  tl.to(c2, {
+    v: 34.9, duration: 1.3, ease: "power2.out",
+    onUpdate: () => { document.getElementById("n2").textContent = c2.v.toFixed(1) + "%"; }
+  }, 14.75);
+  const c3 = { v: 0 };
+  tl.to(c3, {
+    v: 53, duration: 1.15, ease: "power2.out",
+    onUpdate: () => { document.getElementById("n3").textContent = Math.round(c3.v); }
+  }, 15.05);
+
+  tl.fromTo("#s4cap", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }, 16.35);
+  tl.to("#s4c", { opacity: 0, duration: 0.38, ease: "power1.in" }, 18.0);
+
+  /* ---------- Scene 5 · Outro ---------- */
+  tl.fromTo("#s5c", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 18.35);
+  tl.fromTo("#s5h", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 18.42);
+
+  const arcLen = 471;
+  // beat-locked: 18.56s (strong cue) — the Discovery Dial reveal
+  tl.fromTo("#dialarc", { strokeDashoffset: arcLen, opacity: 1 }, { strokeDashoffset: 0, duration: 0.95, ease: "power2.inOut" }, 18.56);
+  tl.to("#dialticks", { opacity: 1, duration: 0.35, ease: "power1.out" }, 19.15);
+  tl.fromTo("#dialneedle", { rotation: -118, svgOrigin: "120 120", opacity: 0 }, { rotation: -118, opacity: 1, duration: 0.2, ease: "power1.out" }, 18.9);
+  tl.to("#dialneedle", { rotation: 34, svgOrigin: "120 120", duration: 1.0, ease: "power3.inOut" }, 19.1);
+  tl.fromTo("#dialname", { x: -26, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 19.05);
+  tl.fromTo("#dialdesc", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }, 19.25);
+  tl.fromTo("#s5foot", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 19.9);
+  tl.to("#s5c", { opacity: 0, duration: 0.45, ease: "power1.in" }, 21.5);
+  tl.to("#bg", { opacity: 0, duration: 0.45, ease: "power1.in" }, 21.52);
+
+  window.__timelines["brag"] = tl;
+</script>
+</body>
+</html>

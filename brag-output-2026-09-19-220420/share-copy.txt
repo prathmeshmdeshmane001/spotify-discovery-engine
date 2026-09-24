@@ -1,0 +1,5 @@
+Spotify says your Daily Mix is fresh. 456 real user reviews disagree — 34.9% of them are about broken music discovery.
+
+I built a pipeline that proves it: scrapes and imports reviews from 5 sources, classifies each one through a Groq LLM against a 7-field taxonomy, aggregates the findings daily on GitHub Actions — and those findings became the Discovery Dial feature concept.
+
+Python · Groq · Supabase · Streamlit
