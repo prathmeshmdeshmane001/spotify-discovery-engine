@@ -30,9 +30,5 @@ Thumbs.db
 # insights.json
 # insights.md
 
-# Node / Web
-node_modules/
-dist/
-dist-ssr/
-*.local
+
 
