@@ -2,7 +2,7 @@
 
 https://github.com/user-attachments/assets/0ea7b1cc-01ae-4a5b-9855-986fc02b6aad
 
-> Spotify Discovery Dial Feature Concept · An AI-Native Review Analysis Engine
+> An AI-Native Review Analysis & Music Discovery Frustration Classifier
 
 An end-to-end pipeline that ingests Spotify user reviews from multiple sources, classifies them using Groq LLM, and surfaces insights about music discovery frustrations — specifically targeting the active explorer segment.
 
@@ -38,7 +38,7 @@ Data Sources → Ingest → Classify → Segment → Aggregate → Insights
 | Top unmet need | "new music" (36 reviews) |
 | Key crosstab | active_explorer + stale_recommendations = 53 reviews |
 
-These findings directly drove the Discovery Dial feature concept — a playlist-level novelty dial with per-track AI reasoning built in React + Vite + Groq.
+These findings quantifiably surface Spotify user discovery fatigue — providing evidence-backed product requirements for playlist novelty controls and recommendation steering.
 
 ---
 
