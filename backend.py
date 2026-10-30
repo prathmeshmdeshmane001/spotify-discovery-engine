@@ -419,10 +419,11 @@ def trigger_full_pipeline():
     try:
         resp = requests.post(dispatch_url, headers=headers, json={"ref": "main"}, timeout=30)
         if resp.status_code not in (204, 200):
-            return False
+            print(f"GitHub Actions dispatch returned HTTP {resp.status_code}: {resp.text}")
+            return (False, f"HTTP {resp.status_code}: {resp.text.strip()}")
     except Exception as e:
         print(f"Failed to trigger GitHub Actions: {e}")
-        return False
+        return (False, str(e))
 
     # Poll up to 20s for the new run to appear
     import time as _t

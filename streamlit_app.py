@@ -225,11 +225,12 @@ with tab_live:
     # --- Button 2: Trigger Full Pipeline ---
     with col2:
         if st.button("Trigger Full Pipeline", use_container_width=True):
-            # Dispatch — returns run_id (int), True, or False
+            # Dispatch — returns run_id (int), True, or (False, error_msg)
             try:
                 result = trigger_full_pipeline()
-                if result is False:
-                    st.error("Failed to trigger pipeline. Check your GitHub token.")
+                if result is False or (isinstance(result, tuple) and result[0] is False):
+                    err_detail = f" ({result[1]})" if isinstance(result, tuple) else ""
+                    st.error(f"Failed to trigger pipeline{err_detail}. Check your GitHub token and repository secrets.")
                     st.stop()
             except Exception as e:
                 st.error(f"Could not trigger pipeline: {e}")
