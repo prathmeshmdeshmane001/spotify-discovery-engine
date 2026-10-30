@@ -16,13 +16,13 @@
   },
   "by_segment": {
     "active_explorer": 42,
-    "unknown": 2,
-    "podcast_first": 2,
-    "passive_listener": 2
+    "podcast_first": 3,
+    "passive_listener": 2,
+    "unknown": 1
   },
   "by_desired_behavior": {
-    "find_new_artists": 25,
-    "break_routine": 16,
+    "find_new_artists": 24,
+    "break_routine": 17,
     "none": 7
   },
   "by_source": {
@@ -31,48 +31,48 @@
   },
   "segment_x_frustration_crosstab": {
     "unknown": {
-      "none": 1,
-      "stale_recommendations": 1
+      "none": 1
     },
     "active_explorer": {
       "stale_recommendations": 22,
-      "poor_new_release_surfacing": 2,
-      "over_personalization": 3,
-      "discovery_friction": 2,
       "control_loss": 7,
+      "poor_new_release_surfacing": 2,
+      "discovery_friction": 2,
+      "over_personalization": 3,
       "context_blindness": 2,
       "algorithmic_sameness": 4
-    },
-    "podcast_first": {
-      "control_loss": 2
     },
     "passive_listener": {
       "stale_recommendations": 1,
       "control_loss": 1
+    },
+    "podcast_first": {
+      "control_loss": 2,
+      "stale_recommendations": 1
     }
   },
   "top_root_causes": {
     "Repeated artists in weekly playlists": 2,
     "Algorithm chooses music without user control": 1,
     "Repeated songs cause lack of discovery": 1,
-    "Repeated recommendations of previously listened or disliked tracks.": 1,
-    "Repeated songs in daily mixes cause boredom": 1,
+    "Repeated recommendations of previously heard or disliked songs.": 1,
+    "Artist appears despite block request": 1,
+    "Same songs repeated in recommendations.": 1,
     "AI-generated songs dominate Release Radar": 1,
-    "Recommendations too personalized, lacking variety.": 1,
+    "AI-generated songs flood Release Radar.": 1,
     "Echo chamber repeats same songs, limiting new artist discovery.": 1,
-    "Song Radio fails to surface new artists": 1,
-    "Repeated songs in daily mixes cause frustration": 1
+    "Repeated songs in daily mixes cause boredom": 1
   },
   "top_unmet_needs": {
-    "Discover new artists": 2,
-    "Variety in recommendations": 2,
     "User wants control over recommendations": 1,
     "Need variety in recommended songs": 1,
-    "Ability to filter out unwanted or repeated recommendations.": 1,
-    "Need fresh recommendations": 1,
+    "Need diverse new artists": 1,
+    "Ability to mark songs as not interested.": 1,
+    "Control over recommendation filtering": 1,
+    "Need variety and new artists.": 1,
     "Need to filter out AI-generated tracks": 1,
-    "Need more diverse, genre-spanning suggestions.": 1,
+    "Need authentic human-created music.": 1,
     "Need variety beyond current listening.": 1,
-    "Discover new artists beyond repeats": 1
+    "Need fresh recommendations": 1
   }
 }
