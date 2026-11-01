@@ -5,24 +5,25 @@
     "percent": 98.0
   },
   "by_frustration_type": {
-    "stale_recommendations": 23,
+    "stale_recommendations": 24,
     "control_loss": 10,
-    "algorithmic_sameness": 5,
     "over_personalization": 3,
+    "algorithmic_sameness": 3,
     "poor_new_release_surfacing": 2,
     "discovery_friction": 2,
     "context_blindness": 2,
-    "none": 1
+    "none": 1,
+    "filter_bubble_lock_in": 1
   },
   "by_segment": {
-    "active_explorer": 41,
-    "passive_listener": 3,
+    "active_explorer": 42,
     "podcast_first": 3,
+    "passive_listener": 2,
     "unknown": 1
   },
   "by_desired_behavior": {
-    "find_new_artists": 24,
-    "break_routine": 15,
+    "find_new_artists": 22,
+    "break_routine": 17,
     "none": 9
   },
   "by_source": {
@@ -34,45 +35,45 @@
       "none": 1
     },
     "active_explorer": {
-      "stale_recommendations": 21,
-      "algorithmic_sameness": 5,
-      "control_loss": 6,
       "over_personalization": 3,
+      "control_loss": 6,
+      "stale_recommendations": 23,
       "poor_new_release_surfacing": 2,
       "discovery_friction": 2,
-      "context_blindness": 2
-    },
-    "passive_listener": {
-      "stale_recommendations": 1,
-      "control_loss": 2
+      "filter_bubble_lock_in": 1,
+      "context_blindness": 2,
+      "algorithmic_sameness": 3
     },
     "podcast_first": {
       "control_loss": 2,
       "stale_recommendations": 1
+    },
+    "passive_listener": {
+      "control_loss": 2
     }
   },
   "top_root_causes": {
-    "No control over recommendations after listening to ASMR": 2,
     "Repeated artists in weekly playlists": 2,
+    "Same songs repeated across all genres": 2,
     "Algorithm chooses music without user control": 1,
-    "Algorithm repeats songs, limiting new discoveries.": 1,
-    "Recommendations mostly repeat familiar songs.": 1,
+    "Too personalized, lacking variety in recommendations.": 1,
     "Artist appears despite block request": 1,
-    "Playlists repeat same songs, causing boredom": 1,
-    "Same songs keep reappearing, limiting fresh discovery.": 1,
+    "Repeated songs in discovery station.": 1,
+    "Repeated songs in daily mixes cause boredom": 1,
+    "AI-generated songs dominate Release Radar": 1,
     "Echo chamber repeats same songs, limiting new artist discovery.": 1,
-    "Repeated songs in daily mixes cause frustration.": 1
+    "Repeated songs reduce discovery.": 1
   },
   "top_unmet_needs": {
-    "Variety in recommendations.": 2,
+    "Variety in recommendations": 2,
     "User wants control over recommendations": 1,
-    "Variety without repeats.": 1,
-    "Need a discovery-focused recommendation feature.": 1,
+    "Need diverse new music suggestions.": 1,
     "Control over recommendation filtering": 1,
-    "Need variety in playlist content": 1,
-    "Need varied, new music recommendations.": 1,
+    "Variety in discovery station.": 1,
+    "Need fresh recommendations": 1,
+    "Need authentic human music in new releases": 1,
     "Need variety beyond current listening.": 1,
-    "Need variety and new music.": 1,
-    "Need more diverse, new music.": 1
+    "Need fresh, varied suggestions.": 1,
+    "Need diverse new artists": 1
   }
 }
