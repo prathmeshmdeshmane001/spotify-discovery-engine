@@ -1,14 +1,14 @@
 {
-  "total_reviews": 51,
+  "total_reviews": 52,
   "discovery_related": {
     "count": 51,
-    "percent": 100.0
+    "percent": 98.1
   },
   "by_frustration_type": {
-    "stale_recommendations": 25,
+    "stale_recommendations": 23,
     "control_loss": 11,
-    "over_personalization": 4,
-    "algorithmic_sameness": 4,
+    "algorithmic_sameness": 7,
+    "over_personalization": 3,
     "poor_new_release_surfacing": 2,
     "discovery_friction": 2,
     "none": 1,
@@ -16,67 +16,65 @@
     "context_blindness": 1
   },
   "by_segment": {
-    "active_explorer": 43,
-    "passive_listener": 4,
+    "active_explorer": 44,
     "podcast_first": 3,
+    "passive_listener": 3,
     "unknown": 1
   },
   "by_desired_behavior": {
-    "find_new_artists": 23,
-    "break_routine": 17,
-    "none": 9,
-    "rediscover_back_catalog": 1,
-    "match_mood_or_context": 1
+    "find_new_artists": 26,
+    "break_routine": 16,
+    "none": 9
   },
   "by_source": {
-    "forum": 40,
-    "social": 11
+    "forum": 39,
+    "social": 12
   },
   "segment_x_frustration_crosstab": {
+    "active_explorer": {
+      "stale_recommendations": 21,
+      "algorithmic_sameness": 7,
+      "control_loss": 7,
+      "over_personalization": 3,
+      "poor_new_release_surfacing": 2,
+      "discovery_friction": 2,
+      "filter_bubble_lock_in": 1,
+      "context_blindness": 1
+    },
     "podcast_first": {
       "control_loss": 2,
       "stale_recommendations": 1
     },
-    "passive_listener": {
-      "stale_recommendations": 2,
-      "control_loss": 2
-    },
-    "active_explorer": {
-      "stale_recommendations": 22,
-      "control_loss": 7,
-      "poor_new_release_surfacing": 2,
-      "over_personalization": 4,
-      "discovery_friction": 2,
-      "filter_bubble_lock_in": 1,
-      "algorithmic_sameness": 4,
-      "context_blindness": 1
-    },
     "unknown": {
       "none": 1
+    },
+    "passive_listener": {
+      "stale_recommendations": 1,
+      "control_loss": 2
     }
   },
   "top_root_causes": {
     "Repeated artists in weekly playlists": 2,
-    "Algorithm recommends unwanted content without user control.": 1,
-    "Playlists repeat same songs, causing boredom": 1,
-    "Algorithm repeats songs, wasting discovery potential.": 1,
-    "Same songs repeated in recommendations.": 1,
-    "Algorithm repeats same tracks despite dismissals": 1,
-    "Repeated songs cause lack of discovery": 1,
-    "Algorithm repeats anime covers.": 1,
+    "Repeated anime covers dominate Discover Weekly.": 1,
+    "No opt-out for unwanted recommendations.": 1,
+    "Algorithm chooses music without user control": 1,
+    "Recommendations repeat familiar songs, lacking new discoveries.": 1,
+    "Account hacked, skewed recommendations": 1,
     "Artist appears despite block request": 1,
-    "AI-generated songs flood Release Radar.": 1
+    "Algorithm repeats songs, limiting new discoveries.": 1,
+    "No way to opt out of unwanted recommendations": 1,
+    "Too personalized, missing variety in recommendations.": 1
   },
   "top_unmet_needs": {
-    "Variety in recommendations.": 2,
-    "Option to filter out disliked content.": 1,
-    "Need variety in playlist content": 1,
-    "Variety without repeats.": 1,
-    "Need variety and new artists.": 1,
-    "Need fresh recommendations after dismissing old ones": 1,
-    "Need variety in recommended songs": 1,
-    "Variety beyond anime covers.": 1,
+    "Need variety in recommended songs": 2,
+    "Discover new artists": 1,
+    "Ability to remove unwanted recommendations.": 1,
+    "Variety of new artists": 1,
+    "Control over recommendation content.": 1,
+    "User wants control over recommendations": 1,
+    "Need a discovery mode for unfamiliar music.": 1,
+    "Need to reset recommendations": 1,
     "Control over recommendation filtering": 1,
-    "Need better filtering for human-created releases.": 1
+    "Variety without repeats.": 1
   }
 }
