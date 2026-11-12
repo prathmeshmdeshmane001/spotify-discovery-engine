@@ -1,23 +1,24 @@
 {
   "total_reviews": 52,
   "discovery_related": {
-    "count": 52,
-    "percent": 100.0
+    "count": 51,
+    "percent": 98.1
   },
   "by_frustration_type": {
-    "stale_recommendations": 24,
-    "control_loss": 12,
-    "algorithmic_sameness": 7,
+    "stale_recommendations": 23,
+    "control_loss": 10,
+    "algorithmic_sameness": 6,
+    "over_personalization": 4,
     "poor_new_release_surfacing": 2,
-    "over_personalization": 2,
     "discovery_friction": 2,
     "filter_bubble_lock_in": 2,
+    "none": 1,
     "context_blindness": 1
   },
   "by_segment": {
-    "active_explorer": 44,
-    "passive_listener": 3,
+    "active_explorer": 43,
     "podcast_first": 3,
+    "passive_listener": 3,
     "unknown": 1,
     "lapsed_explorer": 1
   },
@@ -25,20 +26,23 @@
     "find_new_artists": 25,
     "break_routine": 16,
     "none": 9,
-    "rediscover_back_catalog": 1,
     "match_mood_or_context": 1
   },
   "by_source": {
-    "forum": 40,
+    "forum": 39,
     "social": 12
   },
   "segment_x_frustration_crosstab": {
+    "podcast_first": {
+      "control_loss": 2,
+      "stale_recommendations": 1
+    },
     "active_explorer": {
-      "stale_recommendations": 22,
+      "over_personalization": 4,
+      "stale_recommendations": 21,
+      "control_loss": 6,
+      "algorithmic_sameness": 5,
       "poor_new_release_surfacing": 2,
-      "algorithmic_sameness": 6,
-      "control_loss": 7,
-      "over_personalization": 2,
       "discovery_friction": 2,
       "filter_bubble_lock_in": 2,
       "context_blindness": 1
@@ -47,12 +51,8 @@
       "stale_recommendations": 1,
       "control_loss": 2
     },
-    "podcast_first": {
-      "control_loss": 2,
-      "stale_recommendations": 1
-    },
     "unknown": {
-      "control_loss": 1
+      "none": 1
     },
     "lapsed_explorer": {
       "algorithmic_sameness": 1
@@ -60,26 +60,26 @@
   },
   "top_root_causes": {
     "Repeated artists in weekly playlists": 2,
-    "Repeated recommendations of previously listened or disliked tracks.": 1,
-    "Repeated songs, no new content.": 1,
-    "AI-generated songs flood Release Radar.": 1,
-    "Playlists repeat same songs, causing boredom.": 1,
-    "Algorithmic sameness removes discovery": 1,
-    "Repeated songs in daily mixes cause boredom": 1,
+    "No way to opt out of unwanted recommendations": 1,
+    "Algorithm over-personalizes, limiting variety.": 1,
+    "Repeated songs in daily mixes cause frustration": 1,
+    "Repetitive songs waste the algorithm's potential.": 1,
+    "No control over recommendations after switching to ASMR content": 1,
     "Artist appears despite block request": 1,
-    "Repeated songs in daily mixes cause frustration.": 1,
-    "Shuffle algorithm only cycles through subset of songs": 1
+    "Recommendations lack new, unfamiliar tracks.": 1,
+    "Repeated anime covers dominate Discover Weekly": 1,
+    "Too personalized, missing variety in recommendations.": 1
   },
   "top_unmet_needs": {
-    "Need variety and new music": 2,
-    "Ability to filter out unwanted or repeated recommendations.": 1,
-    "Discover new artists.": 1,
-    "Need authentic human-created music.": 1,
-    "Need variety in music selection.": 1,
+    "Control over recommendation relevance": 2,
+    "Variety of new artists": 2,
+    "Need variety in recommended songs": 2,
+    "Need fresh, varied recommendations.": 2,
+    "Need for diverse, unexpected music.": 1,
+    "Need variety and new music": 1,
+    "Need non-repeating discovery station.": 1,
+    "Option to disable recommendations for content no longer desired": 1,
     "Control over recommendation filtering": 1,
-    "Need variety and new music.": 1,
-    "Hear all liked songs, not just subset": 1,
-    "Discover new artists across genres.": 1,
-    "Need new artist discovery via Song Radio.": 1
+    "Need a discovery-focused recommendation feature.": 1
   }
 }
