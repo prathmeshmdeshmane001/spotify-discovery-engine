@@ -5,10 +5,10 @@
     "percent": 98.1
   },
   "by_frustration_type": {
-    "stale_recommendations": 24,
-    "control_loss": 10,
-    "algorithmic_sameness": 5,
-    "over_personalization": 4,
+    "stale_recommendations": 23,
+    "control_loss": 11,
+    "algorithmic_sameness": 7,
+    "over_personalization": 2,
     "poor_new_release_surfacing": 2,
     "discovery_friction": 2,
     "filter_bubble_lock_in": 2,
@@ -16,15 +16,15 @@
     "context_blindness": 1
   },
   "by_segment": {
-    "active_explorer": 43,
+    "active_explorer": 42,
     "passive_listener": 3,
     "podcast_first": 3,
-    "unknown": 1,
-    "lapsed_explorer": 1
+    "lapsed_explorer": 2,
+    "unknown": 1
   },
   "by_desired_behavior": {
-    "find_new_artists": 23,
-    "break_routine": 18,
+    "find_new_artists": 24,
+    "break_routine": 17,
     "none": 9,
     "match_mood_or_context": 1
   },
@@ -33,15 +33,19 @@
     "social": 12
   },
   "segment_x_frustration_crosstab": {
+    "lapsed_explorer": {
+      "stale_recommendations": 1,
+      "algorithmic_sameness": 1
+    },
     "active_explorer": {
-      "stale_recommendations": 22,
-      "control_loss": 6,
+      "over_personalization": 2,
+      "stale_recommendations": 20,
+      "control_loss": 7,
       "poor_new_release_surfacing": 2,
-      "over_personalization": 4,
       "discovery_friction": 2,
+      "algorithmic_sameness": 6,
       "filter_bubble_lock_in": 2,
-      "context_blindness": 1,
-      "algorithmic_sameness": 4
+      "context_blindness": 1
     },
     "passive_listener": {
       "stale_recommendations": 1,
@@ -53,33 +57,30 @@
     },
     "unknown": {
       "none": 1
-    },
-    "lapsed_explorer": {
-      "algorithmic_sameness": 1
     }
   },
   "top_root_causes": {
-    "Same songs repeated across all genres": 2,
-    "Repeated songs reduce discovery.": 1,
-    "Repeated songs in daily mixes cause frustration": 1,
-    "Repeated artists in AI-generated playlists": 1,
-    "Recommendations repeat familiar songs, lacking new options.": 1,
+    "Too personalized, missing variety in recommendations.": 2,
+    "Algorithmic sameness limits new music exposure": 2,
+    "Same songs repeated in daily mixes": 1,
+    "Repeated songs in Smart Shuffle cause lack of discovery": 1,
     "Artist appears despite block request": 1,
-    "Playlists repeat same songs, causing boredom": 1,
-    "AI-generated songs flood Release Radar": 1,
-    "Too personalized, missing variety in recommendations.": 1,
-    "Algorithm over-personalizes, limiting variety.": 1
+    "Blocked artists still appear in recommendations.": 1,
+    "Repeated artists in weekly playlists": 1,
+    "Repeated songs cause lack of discovery": 1,
+    "AI songs dominate Release Radar, obscuring human releases.": 1,
+    "Echo chamber repeats same songs, limiting new artist discovery.": 1
   },
   "top_unmet_needs": {
+    "Variety in recommendations": 4,
     "Discover new artists across genres.": 2,
-    "Control over recommendation relevance": 2,
-    "Need fresh, varied suggestions.": 1,
-    "Need variety and new music": 1,
-    "Variety of new artists": 1,
-    "More unfamiliar music without manual searching.": 1,
+    "Variety of new artists": 2,
+    "Need fresh, varied recommendations": 1,
     "Control over recommendation filtering": 1,
-    "Need variety in playlist content": 1,
-    "Authentic human-created music surfacing": 1,
-    "Need for diverse, new music.": 1
+    "Control over blocked artists in recommendations.": 1,
+    "Need variety in recommendations": 1,
+    "Option to filter or disable AI-generated tracks.": 1,
+    "Need variety beyond current listening.": 1,
+    "Variety without repeats": 1
   }
 }
