@@ -5,27 +5,27 @@
     "percent": 98.1
   },
   "by_frustration_type": {
-    "stale_recommendations": 23,
+    "stale_recommendations": 24,
     "control_loss": 11,
-    "algorithmic_sameness": 6,
-    "discovery_friction": 3,
+    "algorithmic_sameness": 5,
     "over_personalization": 3,
     "poor_new_release_surfacing": 2,
+    "discovery_friction": 2,
+    "filter_bubble_lock_in": 2,
     "none": 1,
-    "filter_bubble_lock_in": 1,
     "context_blindness": 1
   },
   "by_segment": {
-    "active_explorer": 43,
+    "active_explorer": 41,
+    "lapsed_explorer": 3,
     "podcast_first": 3,
-    "lapsed_explorer": 2,
-    "passive_listener": 2,
+    "passive_listener": 3,
     "unknown": 1
   },
   "by_desired_behavior": {
     "find_new_artists": 24,
-    "break_routine": 17,
-    "none": 9,
+    "break_routine": 18,
+    "none": 8,
     "match_mood_or_context": 1
   },
   "by_source": {
@@ -35,51 +35,53 @@
   "segment_x_frustration_crosstab": {
     "active_explorer": {
       "stale_recommendations": 21,
-      "discovery_friction": 3,
-      "control_loss": 7,
       "poor_new_release_surfacing": 2,
-      "over_personalization": 3,
-      "filter_bubble_lock_in": 1,
-      "context_blindness": 1,
-      "algorithmic_sameness": 5
+      "control_loss": 7,
+      "over_personalization": 2,
+      "discovery_friction": 2,
+      "algorithmic_sameness": 4,
+      "filter_bubble_lock_in": 2,
+      "context_blindness": 1
     },
     "lapsed_explorer": {
       "stale_recommendations": 1,
+      "over_personalization": 1,
       "algorithmic_sameness": 1
     },
     "podcast_first": {
       "control_loss": 2,
       "stale_recommendations": 1
     },
+    "passive_listener": {
+      "stale_recommendations": 1,
+      "control_loss": 2
+    },
     "unknown": {
       "none": 1
-    },
-    "passive_listener": {
-      "control_loss": 2
     }
   },
   "top_root_causes": {
-    "Same songs repeated across all genres": 2,
     "Repeated artists in weekly playlists": 2,
-    "Recommendations repeat songs I already liked.": 1,
-    "Repetitive anime covers dominate recommendations": 1,
-    "Song Radio lacks new music discovery features.": 1,
-    "Recommendations skewed due to unauthorized listening": 1,
+    "Same songs repeated across all genres": 2,
+    "Repeated recommendations of previously heard or disliked songs.": 1,
     "Same songs repeated in daily mixes": 1,
-    "Repetitive playlists cause boredom.": 1,
-    "Algorithm repeats same tracks despite dismissals": 1,
-    "Shuffle repeats songs, limiting variety.": 1
+    "AI-generated songs flood Release Radar.": 1,
+    "Recommendations repeat familiar songs": 1,
+    "Repeated anime covers dominate recommendations.": 1,
+    "Repeated songs in Smart Shuffle cause lack of discovery": 1,
+    "Algorithm over-personalizes, limiting variety.": 1,
+    "Recommendations repeat same tracks despite dismissals": 1
   },
   "top_unmet_needs": {
     "Variety in recommendations": 4,
-    "Need variety in recommended songs": 2,
-    "Control over recommendation content": 2,
-    "More unfamiliar music without manual searching.": 1,
-    "Need diverse new music beyond anime covers": 1,
-    "Discover new artists via Song Radio.": 1,
-    "Need to reset recommendations": 1,
-    "Variety in music selection.": 1,
-    "Need diverse recommendations": 1,
-    "Need true random mix.": 1
+    "Control over recommendation filtering": 2,
+    "Control over recommendation relevance": 2,
+    "Need fresh, diverse music recommendations.": 2,
+    "Ability to mark songs as not interested.": 1,
+    "Discover new artists": 1,
+    "Need authentic human-created music.": 1,
+    "Need unfamiliar music discovery": 1,
+    "Variety beyond anime covers.": 1,
+    "Need variety and new artists": 1
   }
 }
