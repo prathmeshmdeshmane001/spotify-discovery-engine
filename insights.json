@@ -8,18 +8,18 @@
     "stale_recommendations": 24,
     "control_loss": 11,
     "algorithmic_sameness": 5,
-    "over_personalization": 3,
-    "poor_new_release_surfacing": 2,
+    "over_personalization": 4,
     "discovery_friction": 2,
-    "filter_bubble_lock_in": 2,
+    "poor_new_release_surfacing": 2,
     "none": 1,
+    "filter_bubble_lock_in": 1,
     "context_blindness": 1
   },
   "by_segment": {
     "active_explorer": 41,
     "lapsed_explorer": 3,
-    "podcast_first": 3,
     "passive_listener": 3,
+    "podcast_first": 3,
     "unknown": 1
   },
   "by_desired_behavior": {
@@ -35,12 +35,12 @@
   "segment_x_frustration_crosstab": {
     "active_explorer": {
       "stale_recommendations": 21,
-      "poor_new_release_surfacing": 2,
       "control_loss": 7,
-      "over_personalization": 2,
+      "over_personalization": 3,
       "discovery_friction": 2,
+      "poor_new_release_surfacing": 2,
       "algorithmic_sameness": 4,
-      "filter_bubble_lock_in": 2,
+      "filter_bubble_lock_in": 1,
       "context_blindness": 1
     },
     "lapsed_explorer": {
@@ -48,13 +48,13 @@
       "over_personalization": 1,
       "algorithmic_sameness": 1
     },
-    "podcast_first": {
-      "control_loss": 2,
-      "stale_recommendations": 1
-    },
     "passive_listener": {
       "stale_recommendations": 1,
       "control_loss": 2
+    },
+    "podcast_first": {
+      "control_loss": 2,
+      "stale_recommendations": 1
     },
     "unknown": {
       "none": 1
@@ -62,26 +62,26 @@
   },
   "top_root_causes": {
     "Repeated artists in weekly playlists": 2,
-    "Same songs repeated across all genres": 2,
     "Repeated recommendations of previously heard or disliked songs.": 1,
+    "Blocked artists still appear in recommendations.": 1,
     "Same songs repeated in daily mixes": 1,
-    "AI-generated songs flood Release Radar.": 1,
-    "Recommendations repeat familiar songs": 1,
-    "Repeated anime covers dominate recommendations.": 1,
-    "Repeated songs in Smart Shuffle cause lack of discovery": 1,
+    "Repeated songs in discovery station.": 1,
+    "Shuffle algorithm saves order, causing repeats": 1,
     "Algorithm over-personalizes, limiting variety.": 1,
-    "Recommendations repeat same tracks despite dismissals": 1
+    "Recommendations skewed by unauthorized listening": 1,
+    "Artist appears despite block request": 1,
+    "Recommendations repeat same songs, limiting new artist discovery.": 1
   },
   "top_unmet_needs": {
-    "Variety in recommendations": 4,
+    "Variety in recommendations": 3,
     "Control over recommendation filtering": 2,
-    "Control over recommendation relevance": 2,
-    "Need fresh, diverse music recommendations.": 2,
+    "Need variety in recommended songs": 2,
     "Ability to mark songs as not interested.": 1,
-    "Discover new artists": 1,
-    "Need authentic human-created music.": 1,
-    "Need unfamiliar music discovery": 1,
-    "Variety beyond anime covers.": 1,
-    "Need variety and new artists": 1
+    "Control over blocked artists in recommendations.": 1,
+    "Variety in discovery station.": 1,
+    "Variety of new artists": 1,
+    "Variety in shuffle play": 1,
+    "Discover new music beyond familiar choices.": 1,
+    "Need to reset recommendation algorithm": 1
   }
 }
