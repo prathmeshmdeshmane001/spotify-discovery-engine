@@ -5,9 +5,9 @@
     "percent": 98.1
   },
   "by_frustration_type": {
-    "stale_recommendations": 22,
+    "stale_recommendations": 24,
     "control_loss": 11,
-    "algorithmic_sameness": 7,
+    "algorithmic_sameness": 5,
     "over_personalization": 4,
     "discovery_friction": 2,
     "poor_new_release_surfacing": 2,
@@ -16,16 +16,16 @@
     "context_blindness": 1
   },
   "by_segment": {
-    "active_explorer": 41,
+    "active_explorer": 42,
     "lapsed_explorer": 3,
-    "passive_listener": 3,
     "podcast_first": 3,
+    "passive_listener": 2,
     "unknown": 1
   },
   "by_desired_behavior": {
     "find_new_artists": 26,
-    "break_routine": 17,
-    "none": 7,
+    "break_routine": 16,
+    "none": 8,
     "match_mood_or_context": 1
   },
   "by_source": {
@@ -34,13 +34,13 @@
   },
   "segment_x_frustration_crosstab": {
     "active_explorer": {
-      "algorithmic_sameness": 6,
-      "stale_recommendations": 19,
+      "stale_recommendations": 21,
       "discovery_friction": 2,
-      "control_loss": 7,
-      "over_personalization": 3,
+      "control_loss": 8,
       "poor_new_release_surfacing": 2,
+      "over_personalization": 3,
       "filter_bubble_lock_in": 1,
+      "algorithmic_sameness": 4,
       "context_blindness": 1
     },
     "lapsed_explorer": {
@@ -51,37 +51,37 @@
     "unknown": {
       "none": 1
     },
-    "passive_listener": {
-      "stale_recommendations": 1,
-      "control_loss": 2
-    },
     "podcast_first": {
       "control_loss": 2,
       "stale_recommendations": 1
+    },
+    "passive_listener": {
+      "stale_recommendations": 1,
+      "control_loss": 1
     }
   },
   "top_root_causes": {
-    "Repeated artists in weekly playlists": 2,
-    "Recommendations echo previously liked songs.": 1,
-    "Repeated songs in daily mixes cause frustration": 1,
+    "Shuffle repeats songs, limiting variety.": 1,
     "Same songs repeated in daily mixes": 1,
     "Algorithm chooses music without user control": 1,
-    "Repeated anime covers dominate Discover Weekly.": 1,
-    "Spotify's daily discovery lacks variety and freshness": 1,
+    "Repeated artists in weekly playlists": 1,
+    "Repeated old or disliked songs in recommendations.": 1,
+    "Spotify's discovery features are inadequate.": 1,
     "Algorithm over-personalizes, limiting variety.": 1,
-    "Algorithm stuck on same 5 songs": 1,
-    "Artist appears despite block request": 1
+    "Song Radio doesn't surface new artists.": 1,
+    "Artist appears despite block request": 1,
+    "Algorithm stuck on same 5 songs across genres": 1
   },
   "top_unmet_needs": {
-    "Variety in recommendations": 4,
-    "Need variety in recommendations": 2,
+    "Variety in recommendations": 2,
     "Control over recommendation filtering": 2,
-    "Need variety in recommended songs": 2,
-    "More unfamiliar music without manual search.": 1,
-    "Need variety and new music": 1,
+    "Discover new artists across genres.": 2,
+    "Need true random mix.": 1,
     "User wants control over recommendations": 1,
-    "Variety beyond anime covers.": 1,
-    "Better daily discovery of new artists": 1,
-    "Discover new music beyond familiar choices.": 1
+    "Variety of new artists": 1,
+    "Ability to filter out unwanted recommendations.": 1,
+    "Better daily discovery.": 1,
+    "Discover new music beyond familiar choices.": 1,
+    "Need new artist discovery.": 1
   }
 }
