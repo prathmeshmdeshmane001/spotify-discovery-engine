@@ -8,11 +8,11 @@
     "stale_recommendations": 24,
     "control_loss": 11,
     "algorithmic_sameness": 5,
-    "over_personalization": 4,
-    "discovery_friction": 2,
+    "over_personalization": 3,
     "poor_new_release_surfacing": 2,
+    "discovery_friction": 2,
+    "filter_bubble_lock_in": 2,
     "none": 1,
-    "filter_bubble_lock_in": 1,
     "context_blindness": 1
   },
   "by_segment": {
@@ -23,8 +23,8 @@
     "unknown": 1
   },
   "by_desired_behavior": {
-    "find_new_artists": 26,
-    "break_routine": 16,
+    "find_new_artists": 27,
+    "break_routine": 15,
     "none": 8,
     "match_mood_or_context": 1
   },
@@ -33,16 +33,6 @@
     "social": 12
   },
   "segment_x_frustration_crosstab": {
-    "active_explorer": {
-      "stale_recommendations": 21,
-      "discovery_friction": 2,
-      "control_loss": 8,
-      "poor_new_release_surfacing": 2,
-      "over_personalization": 3,
-      "filter_bubble_lock_in": 1,
-      "algorithmic_sameness": 4,
-      "context_blindness": 1
-    },
     "lapsed_explorer": {
       "stale_recommendations": 1,
       "over_personalization": 1,
@@ -50,6 +40,16 @@
     },
     "unknown": {
       "none": 1
+    },
+    "active_explorer": {
+      "stale_recommendations": 21,
+      "poor_new_release_surfacing": 2,
+      "control_loss": 8,
+      "over_personalization": 2,
+      "discovery_friction": 2,
+      "filter_bubble_lock_in": 2,
+      "algorithmic_sameness": 4,
+      "context_blindness": 1
     },
     "podcast_first": {
       "control_loss": 2,
@@ -61,27 +61,27 @@
     }
   },
   "top_root_causes": {
-    "Shuffle repeats songs, limiting variety.": 1,
+    "Same songs repeated across all genres": 2,
+    "Repeated artists in weekly playlists": 2,
     "Same songs repeated in daily mixes": 1,
     "Algorithm chooses music without user control": 1,
-    "Repeated artists in weekly playlists": 1,
-    "Repeated old or disliked songs in recommendations.": 1,
-    "Spotify's discovery features are inadequate.": 1,
+    "No way to opt out of unwanted recommendations": 1,
     "Algorithm over-personalizes, limiting variety.": 1,
-    "Song Radio doesn't surface new artists.": 1,
+    "AI-generated songs flood Release Radar.": 1,
     "Artist appears despite block request": 1,
-    "Algorithm stuck on same 5 songs across genres": 1
+    "Song Radio fails to surface new artists": 1,
+    "Algorithm repeats same tracks despite dismissals": 1
   },
   "top_unmet_needs": {
-    "Variety in recommendations": 2,
+    "Variety in recommendations": 3,
+    "Control over recommendation relevance": 2,
     "Control over recommendation filtering": 2,
-    "Discover new artists across genres.": 2,
-    "Need true random mix.": 1,
     "User wants control over recommendations": 1,
-    "Variety of new artists": 1,
-    "Ability to filter out unwanted recommendations.": 1,
-    "Better daily discovery.": 1,
     "Discover new music beyond familiar choices.": 1,
-    "Need new artist discovery.": 1
+    "Need authentic human-created music.": 1,
+    "Need new artist discovery via Song Radio": 1,
+    "Need fresh recommendations after dismissing old ones": 1,
+    "Need non-repeating discovery station.": 1,
+    "Discover new artists across genres.": 1
   }
 }
