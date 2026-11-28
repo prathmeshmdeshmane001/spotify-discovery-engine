@@ -1,85 +1,82 @@
 {
   "total_reviews": 52,
   "discovery_related": {
-    "count": 52,
-    "percent": 100.0
+    "count": 51,
+    "percent": 98.1
   },
   "by_frustration_type": {
-    "stale_recommendations": 25,
+    "stale_recommendations": 24,
     "control_loss": 11,
     "algorithmic_sameness": 6,
     "over_personalization": 3,
+    "discovery_friction": 3,
     "poor_new_release_surfacing": 2,
-    "discovery_friction": 2,
     "none": 1,
-    "context_blindness": 1,
     "filter_bubble_lock_in": 1
   },
   "by_segment": {
     "active_explorer": 44,
     "podcast_first": 3,
-    "passive_listener": 3,
-    "lapsed_explorer": 1,
-    "unknown": 1
+    "lapsed_explorer": 2,
+    "unknown": 1,
+    "passive_listener": 1
   },
   "by_desired_behavior": {
-    "find_new_artists": 29,
-    "break_routine": 14,
-    "none": 8,
-    "rediscover_back_catalog": 1
+    "find_new_artists": 30,
+    "break_routine": 13,
+    "none": 8
   },
   "by_source": {
-    "forum": 40,
+    "forum": 39,
     "social": 12
   },
   "segment_x_frustration_crosstab": {
     "active_explorer": {
-      "poor_new_release_surfacing": 2,
-      "stale_recommendations": 21,
+      "stale_recommendations": 22,
       "control_loss": 8,
+      "algorithmic_sameness": 5,
       "over_personalization": 3,
-      "algorithmic_sameness": 6,
-      "discovery_friction": 2,
-      "context_blindness": 1,
+      "poor_new_release_surfacing": 2,
+      "discovery_friction": 3,
       "filter_bubble_lock_in": 1
     },
     "lapsed_explorer": {
-      "stale_recommendations": 1
+      "stale_recommendations": 1,
+      "algorithmic_sameness": 1
     },
     "podcast_first": {
       "control_loss": 2,
       "stale_recommendations": 1
     },
-    "passive_listener": {
-      "stale_recommendations": 2,
-      "control_loss": 1
-    },
     "unknown": {
       "none": 1
+    },
+    "passive_listener": {
+      "control_loss": 1
     }
   },
   "top_root_causes": {
     "Repeated artists in weekly playlists": 2,
-    "AI-generated songs flood Release Radar.": 1,
-    "Repeated songs reduce discovery.": 1,
-    "Repeated songs across all genres": 1,
-    "Account hacked, skewed recommendations": 1,
+    "Algorithmic sameness limits new music exposure.": 2,
+    "Repeated songs prevent real discovery.": 1,
+    "Repeated songs in daily mixes cause frustration": 1,
+    "Repeated songs cause lack of discovery": 1,
     "Same songs repeated in daily mixes": 1,
-    "Repeated anime covers dominate Discover Weekly.": 1,
-    "Algorithm repeats same tracks despite dismissals": 1,
     "Shuffle saves order, causing repeated song playback": 1,
+    "Shuffle repeats songs, limiting variety.": 1,
+    "Repeated recommendations of previously listened songs.": 1,
     "Algorithm repeats songs, limiting new discoveries.": 1
   },
   "top_unmet_needs": {
     "Variety in recommendations": 3,
-    "Discover new artists": 2,
-    "Need fresh, varied recommendations": 2,
-    "Authentic human-created music surfaced.": 1,
-    "Need fresh, varied suggestions.": 1,
-    "Need to reset recommendations": 1,
-    "Ability to remove unwanted recommendations.": 1,
-    "Need fresh recommendations beyond repeated songs": 1,
+    "Need fresh, varied recommendations.": 1,
+    "Need variety and new music": 1,
+    "Need variety in fresh song recommendations": 1,
     "Need varied shuffle order each time": 1,
-    "Variety without repeats.": 1
+    "Need true random mix.": 1,
+    "Filter out disliked or already heard tracks.": 1,
+    "Variety without repeats.": 1,
+    "Discover new artists": 1,
+    "More unfamiliar music without manual search.": 1
   }
 }
